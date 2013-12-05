@@ -1,0 +1,25 @@
+# Save 10,000 commands. Memory is cheap.
+export HISTSIZE=10000
+
+# Ignore certain commands in history
+export HISTIGNORE=cd:ls:exit:clear:pushd:popd
+
+# Ignore both whitespace at beginning of line and duplicate commands
+export HISTCONTROL=ignoreboth
+
+# Add time to history
+export HISTTIMEFORMAT='%F %T '
+
+# Append to our history, don't overwrite
+shopt -s histappend
+
+# Save multiline commands in a single line if possible
+shopt -s cmdhist
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar

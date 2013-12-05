@@ -1,0 +1,19 @@
+ ,v
+docunext/closetag.vim,v
+Bundle 'docunext/closetag.vim',V
+,V
+tpope/vim-surround,v
+Bundle 'tpope/vim-surround',V
+scrooloose/nerdcommenter,v
+Bundle 'scrooloose/nerdcommenter',V
+corntrace/bufexplorer,v
+Bundle 'corntrace/bufexplorer',V
+SirVer/ultisnips,v
+Bundle 'SirVer/ultisnips',V
+paradigm/TextObjectify,v
+Bundle 'paradigm/TextObjectify',V
+vim-scripts/ScrollColors,v
+Bundle 'vim-scripts/ScrollColors',V
+Bundle 'tpope/vim-fugitive',V
+Bundle 'tpope/vim-fugitive'Bundle 'vim-scripts/ScrollColors',V
+tpope/vim-fugitive,v

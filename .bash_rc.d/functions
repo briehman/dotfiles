@@ -1,0 +1,18 @@
+vimfind() {
+  vim $(find "$@")
+}
+
+vimgitgrep() {
+  vim $(git grep -l "$@")
+}
+
+gcd() {
+  local gitroot=$(git rev-parse --show-toplevel)
+
+  if [[ ! -d "$gitroot" ]]; then
+    echo "ERROR: Not in a Git directory. Use 'cd' instead." >&2
+    return
+  fi
+
+  cd ${gitroot}/$1
+}

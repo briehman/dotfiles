@@ -1,0 +1,47 @@
+[core]
+  pager = less
+[user]
+  name = Brian Riehman
+  email = brian@briehman.com
+[advice]
+  statusHints = false
+[branch]
+  autosetupmerge = true
+[color]
+  ui = auto
+[diff]
+  mnemonicprefix = true
+  renames = copies
+[alias]
+  br = branch
+  ci = commit
+  cia = commit --amend
+  co = checkout
+  cp = cherry-pick
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  rb = rebase
+  rbc = rebase --continue
+  rbs = rebase --skip
+  rl = reflog
+  rs = remote show
+  rt = remote
+  ru = remote update
+  sb = show-branch
+  sm = submodule
+  smu = submodule update
+  smf = submodule foreach
+  st = status
+  staged = diff --cached
+  t = !git tag | sort -n
+  um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
+  mod = !git status --porcelain | grep -E '^.M' | cut -c4-
+  ctags = !.git/hooks/ctags
+[log]
+  decorate = full
+[merge]
+  tool = vimdiff
+  stat = true
+[rerere]
+  enabled = 1
+[init]
+  templatedir = ~/.git-template
