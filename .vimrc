@@ -207,13 +207,6 @@ if has('autocmd')
         \     endif |
         \ endif
 
-  " {{{ Templates
-  autocmd BufNewFile *.sh 0r ~/.vim/templates/template.sh
-  autocmd BufNewFile *.ksh 0r ~/.vim/templates/template.ksh
-  autocmd BufNewFile *.java 0r ~/.vim/templates/template.java
-  autocmd BufNewFile *.py 0r ~/.vim/templates/template.py
-  " }}}
-
   " {{{ Git settings
   " Commit messages settings
   "   Enable spell-checking
