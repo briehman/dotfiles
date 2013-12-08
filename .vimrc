@@ -358,7 +358,7 @@ map <leader>tl :TlistToggle<cr>
 
 " {{{ Closetag
 " Source our closetag function with the right document types
-au FileType html,xml,xsl,xslt source ~/.vim/bundle/closetag/closetag.vim
+au FileType html,xml,xsl,xslt source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 " }}}
 
 " CtrlP {{{
