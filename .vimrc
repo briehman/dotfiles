@@ -363,11 +363,6 @@ au FileType html,xml,xsl,xslt source ~/.vim/bundle/closetag.vim/plugin/closetag.
 " }}}
 
 " CtrlP {{{
-let g:ctrlp_prompt_mappings = {
-      \ 'PrtBS()': ['<c-h>'],
-      \ 'PrtCurLeft()': ['<left>'],
-      \ }
-
 nmap <leader>cpp :CtrlP<CR>
 nmap <leader>cpb :CtrlPBuffer<CR>
 nmap <leader>cpm :CtrlPMRU<CR>
