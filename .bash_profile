@@ -2,8 +2,6 @@ if [ -f ~/.bashrc ]; then
   . ~/.bashrc
 fi
 
-set -o vi
-
 GIT_PROMPT_FILE="$HOME/.bash_rc/git-prompt.sh"
 if [[ -f "$GIT_PROMPT_FILE" ]]; then
   export GIT_PS1_SHOWDIRTYSTATE=true
