@@ -2,7 +2,7 @@
   pager = less
 [user]
   name = Brian Riehman
-  email = brian@briehman.com
+  email = brian@brianriehman.com
 [advice]
   statusHints = false
 [branch]
