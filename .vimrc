@@ -90,7 +90,7 @@ set wildmenu
 "set wildmode=list:longest,full
 set wildmode=list:list:longest
 
-set wildignore+=*.swp,*.zip,*.tar,*.gz,*.class,*.o,*/build/*
+set wildignore+=*.swp,*.zip,*.tar,*.gz,*.class,*.o,*/build/*,*dist/*
 
 " Allow backspace over newlines
 set backspace=2
