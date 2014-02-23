@@ -12,10 +12,7 @@ if [[ -f "$GIT_PROMPT_FILE" ]]; then
   . $GIT_PROMPT_FILE
 fi
 
-NODE_JS_HOME="/opt/node"
-
 export EDITOR=vim
 export VISUAL=vim
 add_path $HOME/bin
 add_path $HOME/.rvm/bin
-add_path $NODE_HS_HOME/bin
