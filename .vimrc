@@ -30,6 +30,7 @@ Bundle 'vim-scripts/Colour-Sampler-Pack'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'vim-scripts/taglist.vim'
 "Bundle 'vim-scripts/YankRing.vim'
+Bundle 'bling/vim-airline'
 
 filetype plugin indent on
 
