@@ -1,18 +1,14 @@
-set nocompatible
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-set <m-n>=n
-set <m-p>=p
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
 " }}}
-
-" let Vundle manage Vundle
-" required!
-Bundle 'gmarik/vundle'
 
 Bundle 'SirVer/ultisnips'
 Bundle 'corntrace/bufexplorer'
@@ -31,6 +27,9 @@ Bundle 'vim-scripts/ScrollColors'
 Bundle 'vim-scripts/taglist.vim'
 "Bundle 'vim-scripts/YankRing.vim'
 Bundle 'bling/vim-airline'
+
+" All of your Plugins must be added before the following line
+call vundle#end()
 
 filetype plugin indent on
 
