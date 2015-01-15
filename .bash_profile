@@ -14,5 +14,3 @@ fi
 
 export EDITOR=vim
 export VISUAL=vim
-add_path $HOME/bin
-add_path $HOME/.rvm/bin
