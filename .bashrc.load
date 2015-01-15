@@ -1,8 +1,14 @@
-. ~/.bash_rc.d/path
-. ~/.bash_rc.d/aliases
-. ~/.bash_rc.d/shell
-. ~/.bash_rc.d/functions
-. ~/.bash_rc.d/completion
+_source_path() {
+  local f="$HOME/.bash_rc.d/$1"
+  [ -r "$f" ] && . "$f"
+  [ -r "${f}.local" ] && . "${f}.local"
+}
+
+for t in path aliases shell functions completion; do
+  _source_path $t
+done
+
+unset -f _source_path
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] \
