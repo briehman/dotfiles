@@ -1,3 +1,5 @@
+# vim: ft=sh
+
 vimfind() {
   vim $(find "$@")
 }
@@ -15,4 +17,30 @@ gcd() {
   fi
 
   cd ${gitroot}/$1
+}
+
+sd() {
+  svn diff "$@" | cdiff
+}
+
+sl() {
+  svn log "$@" | less
+}
+
+svn_branch() {
+  svn info | grep -E "^URL" | cut -d' ' -f2
+}
+
+jboss_select() {
+  : ${JBOSS_INSTALL_DIR:=$HOME/.local/opt}
+  options=($(find $JBOSS_INSTALL_DIR  -maxdepth 1 \( -name "jboss*" -o -name "wildfly*" \) \( -type l \) | sort ) $(find $JBOSS_INSTALL_DIR  -maxdepth 1 \( -name "jboss*" -o -name "wildfly*" \) \( -type d \) | sort))
+
+  PS3="Select the JBoss instance to use: "
+  select opt in "${options[@]}"; do
+    if [[ -n "$opt" ]]; then
+      export JBOSS_HOME="$opt"
+      echo "JBOSS_HOME=$JBOSS_HOME"
+      break
+    fi
+  done
 }
