@@ -2,6 +2,7 @@
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias ag="ack-grep"
 
 # Vim aliases
 alias v=vim
@@ -9,7 +10,7 @@ alias vi=vim
 
 # Shell aliases
 alias ls="ls --color=auto"
-alias ll="ls -al --color=auto"
+alias ll="ls -Al --color=auto"
 
 # Git aliases
 alias g=git
@@ -20,6 +21,9 @@ alias gst="git staged"
 alias gg="git grep"
 alias gl="git log"
 complete -o default -o nospace -F _git g
+
+# svn aliases
+alias sb="svn_branch"
 
 # tmux aliases
 alias tm=tmux
