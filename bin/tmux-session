@@ -1,0 +1,25 @@
+#!/bin/sh
+
+: ${SESSIONNAME:=${1?Must provide session name as argument}}
+set -x
+
+tmux has-session -t $SESSIONNAME 2>/dev/null
+
+if [ $? != 0 ]; then
+  tmux new-session -s $SESSIONNAME -d
+
+  if [ "$SESSIONNAME" = "system" ]; then
+    tmux rename-window -t 0 jboss
+    tmux new-window -t 1
+    tmux select-window -t 0
+  fi
+
+  if [ "$SESSIONNAME" = "dev" ]; then
+    tmux new-window
+    tmux new-window
+    tmux new-window
+    tmux select-window -t 0
+  fi
+fi
+
+tmux attach-session -t $SESSIONNAME
