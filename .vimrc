@@ -382,9 +382,11 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.vim/cache/ctrlp'
 let g:ctrlp_open_multiple_files = '2vr'
 let g:ctrlp_extensions = ['tag', 'undo', 'mixed']
+let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\.git$\|build$\'
       \}
+let g:ctrlp_root_markers = ['.idea']
 " }}}
 
 " UltiSnips {{{
@@ -394,7 +396,7 @@ let g:UltiSnipsEditSplit = 'horizontal'
 
 
 set nocompatible
-set colorcolumn=80
+set colorcolumn=120
 set history=1000
 
 " Insert filename
