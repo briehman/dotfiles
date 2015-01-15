@@ -1,5 +1,5 @@
 _source_path() {
-  local f="$HOME/.bash_rc.d/$1"
+  local f="$HOME/.bashrc.d/$1"
   [ -r "$f" ] && . "$f"
   [ -r "${f}.local" ] && . "${f}.local"
 }
