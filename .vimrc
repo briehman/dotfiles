@@ -27,6 +27,7 @@ Bundle 'vim-scripts/ScrollColors'
 Bundle 'vim-scripts/taglist.vim'
 "Bundle 'vim-scripts/YankRing.vim'
 Bundle 'bling/vim-airline'
+Bundle 'rodjek/vim-puppet'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
