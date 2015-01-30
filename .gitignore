@@ -2,3 +2,4 @@
 .vim/cache/ctrlp/*
 .vim/tmp/*
 .vim/undodir/*
+.vim/yankring_history_*
