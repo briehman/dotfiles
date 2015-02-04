@@ -25,10 +25,10 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/Colour-Sampler-Pack'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'vim-scripts/taglist.vim'
-"Bundle 'vim-scripts/YankRing.vim'
 Bundle 'bling/vim-airline'
 Bundle 'rodjek/vim-puppet'
 
+" All of your Plugins must be added before the following line
 " All of your Plugins must be added before the following line
 call vundle#end()
 
@@ -90,7 +90,7 @@ set wildmenu
 "set wildmode=list:longest,full
 set wildmode=list:list:longest
 
-set wildignore+=*.swp,*.zip,*.tar,*.gz,*.class,*.o,*/build/*,*dist/*
+set wildignore+=*.swp,*.zip,*.tar,*.gz,*.class,*.o,*/build/*,*dist/*,*.jar
 
 " Allow backspace over newlines
 set backspace=2
@@ -343,20 +343,6 @@ nnoremap <Leader>gs :Gstatus<Enter>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 " }}}
 
-" {{{ YankRing
-" Open up our yank rink upon request
-let g:yankring_history_file = '.vim/yankring_history'
-nnoremap <Leader>pp :YRShow<Enter>
-inoremap <Leader>pp <ESC>:YRShow<Enter>
-"  }}}
-
-" YankStack {{{
-" We want to use our own keymaps
-let g:yankstack_map_keys = 0
-nmap <m-p> <Plug>yankstack_substitute_newer_paste
-nmap <m-n> <Plug>yankstack_substitute_newer_paste
-" }}}
-
 " {{{ Taglist
 " Tell the taglist plugin that the window size cannot be changed
 let Tlist_Inc_Winwidth=0
@@ -371,12 +357,13 @@ au FileType html,xml,xsl,xslt source ~/.vim/bundle/closetag.vim/plugin/closetag.
 " }}}
 
 " CtrlP {{{
+let g:ctrlp_map = '<m-p>'
 nmap <leader>cpp :CtrlP<CR>
 nmap <leader>cpb :CtrlPBuffer<CR>
 nmap <leader>cpm :CtrlPMRU<CR>
 let g:ctrlp_match_window_reversed = 0 " Put search results at the top instead of the bottom
 let g:ctrlp_regexp = 1 " Search as regex by default
-let g:ctrlp_max_files = 10000
+let g:ctrlp_max_files = 30000
 let g:ctrlp_max_depth = 40
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.vim/cache/ctrlp'
@@ -384,9 +371,17 @@ let g:ctrlp_open_multiple_files = '2vr'
 let g:ctrlp_extensions = ['tag', 'undo', 'mixed']
 let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git$\|build$\'
+      \ 'dir':  '\v[\/]\.(git|hg|svn)|build$'
       \}
 let g:ctrlp_root_markers = ['.idea']
+" }}}
+
+" YankStack {{{
+" If we do not manually specify these mappings, ctrlp will take them over for
+" some reason even though we've told it not to
+let g:yankstack_map_keys = 0
+nmap <C-p> <Plug>yankstack_substitute_older_paste
+nmap <C-n> <Plug>yankstack_substitute_newer_paste
 " }}}
 
 " UltiSnips {{{
