@@ -49,7 +49,7 @@ svn_branch() {
 # Extremely hacky 'stash' for subversion by renaming files to a suffix that should not be tracked.
 svn_stash() {
   svn status -q | grep -E "^M" | awk '{print $2; }' | while read f; do
-    cp -ip "$f" "$f.stashed" && svn revert "$f"
+    cp -p "$f" "$f.stashed" && svn revert "$f"
   done
 }
 
@@ -58,4 +58,25 @@ svn_stash_pop() {
     mv "$f" "$(dirname $f)/$(basename $f .stashed)"
   done
 }
+
+# Extremely hacky 'index' for subversion by renaming files
+svn_save() {
+  svn status -q | grep -E "^M" | awk '{print $2; }' | while read f; do
+    cp -p "$f" "$f.saved"
+  done
+}
+
+svn_save_clean() {
+  svn status | grep -E "\.saved" | awk '{print $2; }' | while read f; do
+    rm "$f"
+  done
+}
+
+svn_save_revert() {
+  svn status | grep -E "\.saved" | awk '{print $2; }' | while read f; do
+    mv "$f" "$(dirname $f)/$(basename $f .saved)"
+  done
+}
+
+
 # }}}
