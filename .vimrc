@@ -148,9 +148,9 @@ autocmd BufWinLeave * call clearmatches()
 "{{{ Spacing and tabbing
 set autoindent
 set cindent
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set expandtab
 set smarttab
 " }}}
