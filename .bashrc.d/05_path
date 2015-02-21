@@ -18,3 +18,4 @@ del_path () {
 }
 
 add_path $HOME/bin
+add_path $HOME/node_modules/.bin
