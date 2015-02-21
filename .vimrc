@@ -28,6 +28,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/Colour-Sampler-Pack'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'vim-scripts/taglist.vim'
+Bundle 'kchmck/vim-coffee-script'
 
 " All of your Plugins must be added before the following line
 " All of your Plugins must be added before the following line
