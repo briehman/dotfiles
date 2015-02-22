@@ -1,0 +1,14 @@
+{
+  "name": "brian",
+  "version": "0.0.0",
+  "description": "Home directory modules",
+  "main": "",
+  "directories": {},
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "~1.9.1"
+  },
+  "scripts": {},
+  "author": "",
+  "license": ""
+}
