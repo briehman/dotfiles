@@ -35,3 +35,6 @@ alias tml="tmux list-sessions"
 # Function
 alias vgg="vimgitgrep"
 alias vf="vimfind"
+
+# vagrant
+alias vg=vagrant
