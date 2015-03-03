@@ -46,9 +46,6 @@ if &term =~ 'xterm-256color' || &term =~ 'screen-256color' || &term =~ 'xterm'
   set t_Co=256
   color desert256
 else
-  " Color settings and scheme
-  "set t_Sf=[3%p1%dm
-  "set t_Sb=[4%p1%dm
   set t_Co=8
   color desert
 endif
