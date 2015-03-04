@@ -9,6 +9,8 @@ alias v=vim
 alias vi=vim
 
 # Shell aliases
+alias k=kill
+alias ka=killall
 alias ls="ls --color=auto"
 alias ll="ls -Al --color=auto"
 alias lld="ls -Ald --color=auto"
