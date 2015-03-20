@@ -78,5 +78,7 @@ svn_save_revert() {
   done
 }
 
-
+svn_list_my_branches() {
+    svn ls ${1:-https://subversion/svn/work/dev} | grep briehman | sort
+}
 # }}}

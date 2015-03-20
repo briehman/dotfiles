@@ -27,6 +27,7 @@ complete -F _git g -o default
 
 # svn aliases
 alias sb="svn_branch"
+alias myb="svn_list_my_branches"
 
 # tmux aliases
 alias tm=tmux
