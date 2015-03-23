@@ -4,13 +4,7 @@ _source_path() {
   [ -f "$f.local" -a -r "$f.local" ] && . "${f}.local"
 }
 
-for t in $HOME/.profile.d/*; do
-  if [ -z $(echo "$t" | grep -E \\.local) ]; then
-    _source_path "$t"
-  fi
-done
-
-for t in $HOME/.bashrc.d/*; do
+for t in $HOME/.profile.d/* $HOME/.bashrc.d/*; do
   if [ -z $(echo "$t" | grep -E \\.local) ]; then
     _source_path "$t"
   fi
