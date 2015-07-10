@@ -3,23 +3,37 @@
 : ${SESSIONNAME:=${1?Must provide session name as argument}}
 set -x
 
+_make_session() {
+    tmux new-session -s "$1" -d
+}
+
 tmux has-session -t $SESSIONNAME 2>/dev/null
 
 if [ $? != 0 ]; then
-  tmux new-session -s $SESSIONNAME -d
-
   if [ "$SESSIONNAME" = "system" ]; then
-    tmux rename-window -t 0 jboss
-    tmux new-window -t 1
-    tmux select-window -t 0
+    _make_session "$SESSIONNAME"
+    tmux new-window -t "$SESSIONNAME"
+    tmux new-window -t "$SESSIONNAME"
+    tmux new-window -t "$SESSIONNAME"
+  elif [ "$SESSIONNAME" = "dev" ]; then
+    startat=$HOME/dev/backstop
+    cd $startat
+    _make_session "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+  elif [ "$SESSIONNAME" = "maven" ]; then
+    startat=$HOME/dev/backstop-mvn
+    cd $startat
+    _make_session "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+    tmux new-window -c $startat -t "$SESSIONNAME"
+    tmux new-window -c $HOME/dev/backstop-mainline-mvn -t "$SESSIONNAME"
   fi
 
-  if [ "$SESSIONNAME" = "dev" ]; then
-    tmux new-window
-    tmux new-window
-    tmux new-window
-    tmux select-window -t 0
-  fi
+  tmux select-window -t 0
 fi
 
 tmux attach-session -t $SESSIONNAME

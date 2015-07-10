@@ -9,6 +9,7 @@ alias v=vim
 alias vi=vim
 
 # Shell aliases
+alias f=find
 alias k=kill
 alias ka=killall
 alias ls="ls --color=auto"
@@ -26,8 +27,11 @@ alias gl="git log"
 complete -F _git g -o default
 
 # svn aliases
-alias sb="svn_branch"
 alias myb="svn_list_my_branches"
+alias sb="svn_branch"
+alias svs="svn status"
+alias svu="svnup"
+alias svr="svn revert"
 
 # tmux aliases
 alias tm=tmux

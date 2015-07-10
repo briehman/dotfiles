@@ -48,8 +48,14 @@ svn_branch() {
 
 # Extremely hacky 'stash' for subversion by renaming files to a suffix that should not be tracked.
 svn_stash() {
+  # Add stashed to existing stashed files
+  svn status | grep -E "\\.stashed$" | awk '{print $2; }' | while read f; do
+    mv "$f" "$f.stashed" || return
+  done
+
+  # Rename modified files to stashed
   svn status -q | grep -E "^M" | awk '{print $2; }' | while read f; do
-    cp -p "$f" "$f.stashed" && svn revert "$f"
+    cp -p "$f" "$f.stashed" && svn revert "$f" || return
   done
 }
 
@@ -79,6 +85,19 @@ svn_save_revert() {
 }
 
 svn_list_my_branches() {
-    svn ls ${1:-https://subversion/svn/work/dev} | grep briehman | sort
+    svn ls ${1:-https://subversion/svn/work/dev} | grep "${SVN_USER:-$USER}" | sort
 }
 # }}}
+
+search_jars() {
+    needle="${1?Specify search argument}"
+    shift
+    for jar in "$@"; do
+         jar tf $jar | grep -qs $needle && echo $jar
+    done
+}
+
+svnup() {
+    mpg123 ~/Downloads/doink-doink.mp3  >/dev/null 2>/dev/null
+    svn update
+}

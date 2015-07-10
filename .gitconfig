@@ -45,3 +45,5 @@
   enabled = 1
 [init]
   templatedir = ~/.git-template
+[push]
+	default = simple

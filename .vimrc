@@ -20,6 +20,7 @@ Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'mbbill/undotree'
 Bundle 'paradigm/TextObjectify'
 Bundle 'rodjek/vim-puppet'
+Bundle 'suan/vim-instant-markdown'
 Bundle 'tmhedberg/matchit'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
@@ -276,7 +277,7 @@ nnoremap zh 20zh
 nnoremap zl 20zl
 
 " This is totally awesome - remap jj to escape in insert mode.  You'll never type jj anyway, so it's great!
-inoremap <Esc> <nop>
+"inoremap <Esc> <nop>
 inoremap jj <Esc>
 inoremap jk <Esc>
 
