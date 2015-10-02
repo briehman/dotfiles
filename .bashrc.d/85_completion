@@ -1,1 +1,4 @@
 . $HOME/.bash_completion.d/*
+
+complete -F _git g -o default
+complete -o default -o nospace -F _tmux tm

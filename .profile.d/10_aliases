@@ -24,7 +24,6 @@ alias gd="git diff"
 alias gst="git staged"
 alias gg="git grep"
 alias gl="git log"
-complete -F _git g -o default
 
 # svn aliases
 alias myb="svn_list_my_branches"
@@ -35,7 +34,6 @@ alias svr="svn revert"
 
 # tmux aliases
 alias tm=tmux
-complete -o default -o nospace -F _tmux tm
 alias tma="tmux attach-session"
 alias tml="tmux list-sessions"
 
