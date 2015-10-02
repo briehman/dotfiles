@@ -94,6 +94,25 @@ zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
 zstyle ':filter-select' extended-search no # see below
 # }}}
 
+_source_path() {
+  local f=${1?}
+  [ -f "$f" -a -r "$f" ] && . "$f"
+  [ -f "$f.local" -a -r "$f.local" ] && . "${f}.local"
+}
+
+for t in $HOME/.profile.d/*; do
+  if [ -z $(echo "$t" | grep -E \\.local) ]; then
+    _source_path "$t"
+  fi
+done
+
+for t in $HOME/.zshrc.d/*; do
+  if [ -z $(echo "$t" | grep -E \\.local) ]; then
+    _source_path "$t"
+  fi
+done
+
+
 # aliases {{{
 alias g="git"
 alias gs="git status"
