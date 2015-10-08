@@ -1,33 +1,3 @@
-# Prompt {{{
-autoload -Uz promptinit
-promptinit
-prompt redhat
-# }}}
-
-# History {{{
-# Ignore duplicates and spaces, share history between sessions
-setopt inc_append_history hist_ignore_space histignorealldups sharehistory
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
-# }}}
-
-# vi mode {{{
-# Use vi keybindings
-bindkey -v
-
-# Make Ctrl-P and Ctrl-N search the way I would expect in history
-autoload up-line-or-beginning-search
-autoload down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '^P' up-line-or-beginning-search
-bindkey '^N' down-line-or-beginning-search
-# }}}
-
-# completion {{{
 # Use modern completion system
 autoload -Uz compinit && compinit
 
@@ -92,31 +62,3 @@ zstyle ':filter-select' max-lines -10 # use $LINES - 10 for filter-select
 zstyle ':filter-select' rotate-list yes # enable rotation for filter-select
 zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
 zstyle ':filter-select' extended-search no # see below
-# }}}
-
-_source_path() {
-  local f=${1?}
-  [ -f "$f" -a -r "$f" ] && . "$f"
-  [ -f "$f.local" -a -r "$f.local" ] && . "${f}.local"
-}
-
-for t in $HOME/.profile.d/*; do
-  if [ -z $(echo "$t" | grep -E \\.local) ]; then
-    _source_path "$t"
-  fi
-done
-
-for t in $HOME/.zshrc.d/*; do
-  if [ -z $(echo "$t" | grep -E \\.local) ]; then
-    _source_path "$t"
-  fi
-done
-
-
-# aliases {{{
-alias g="git"
-alias gs="git status"
-alias gd="git diff"
-alias gst="git diff --cached"
-alias ga="git add"
-# }}}
