@@ -25,6 +25,7 @@ Bundle 'tmhedberg/matchit'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/Colour-Sampler-Pack'
@@ -222,6 +223,10 @@ if has('autocmd')
   "   Wrap commit messages at 72 chars
   "   Start in insert mode
   autocmd BufNewFile,BufReadPost svn-commit.tmp set ft=gitcommit spell tw=72 | exe "normal ggX" | start
+  " }}}
+
+  " {{{ Filetype settings
+  autocmd BufNewFile,BufRead *.md set filetype=markdown
   " }}}
 
 endif
