@@ -54,7 +54,6 @@ zstyle ':completion:*:ssh:*' tag-order users 'hosts:-host hosts:-domain:domain h
 zstyle ':completion:*:ssh:*' group-order hosts-domain hosts-host users hosts-ipaddr
 zstyle '*' single-ignored show
 
-
 # ZAW styles
 zstyle ':filter-select:highlight' matched fg=yellow,standout
 zstyle ':filter-select' max-lines 10 # use 10 lines for filter-select
