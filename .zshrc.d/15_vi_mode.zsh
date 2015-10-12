@@ -11,4 +11,3 @@ bindkey '^N' down-line-or-search
 
 # Let jj break from search mode
 bindkey -M isearch 'jj' accept-search
-bindkey -M isearch 'jj' accept-search
