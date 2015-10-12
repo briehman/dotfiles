@@ -1,3 +1,6 @@
+# Load zaw
+. ${0:h}/zaw/zaw.zsh
+
 # Trigger zaw by default with Ctrl-X ;
 
 # Bind history to Ctrl-R
