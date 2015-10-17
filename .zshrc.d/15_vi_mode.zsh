@@ -11,3 +11,7 @@ bindkey '^N' down-line-or-search
 
 # Let jj break from search mode
 bindkey -M isearch 'jj' accept-search
+
+# Let v edit the command
+autoload edit-command-line && zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
