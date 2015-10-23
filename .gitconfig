@@ -18,7 +18,9 @@
   cia = commit --amend
   co = checkout
   cp = cherry-pick
+  ctags = !.git/hooks/ctags
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  mod = !git status --porcelain | grep -E '^.M' | cut -c4-
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
@@ -28,14 +30,12 @@
   ru = remote update
   sb = show-branch
   sm = submodule
-  smu = submodule update
   smf = submodule foreach
+  smu = submodule update
   st = status
   staged = diff --cached
   t = !git tag | sort -n
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
-  mod = !git status --porcelain | grep -E '^.M' | cut -c4-
-  ctags = !.git/hooks/ctags
 [log]
   decorate = full
 [merge]
