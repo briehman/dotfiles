@@ -32,6 +32,9 @@
   sm = submodule
   smf = submodule foreach
   smu = submodule update
+  sl = stash list
+  sp = stash pop
+  ss = stash show
   st = status
   staged = diff --cached
   t = !git tag | sort -n
