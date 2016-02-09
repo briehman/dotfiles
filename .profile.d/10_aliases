@@ -1,7 +1,5 @@
 # Grep aliases
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias ag="ack-grep"
 
 # Vim aliases
@@ -24,6 +22,7 @@ alias gd="git diff"
 alias gst="git staged"
 alias gg="git grep"
 alias gl="git log"
+alias glr="git log --reverse"
 
 # svn aliases
 alias myb="svn_list_my_branches"
