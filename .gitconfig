@@ -1,5 +1,6 @@
 [core]
   pager = less
+  autocrlf = input
 [user]
   name = Brian Riehman
   email = brian@riehman.com
