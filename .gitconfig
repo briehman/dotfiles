@@ -24,6 +24,7 @@
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
+  rp = remote prune
   rl = reflog
   rs = remote show
   rt = remote
