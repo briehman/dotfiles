@@ -15,7 +15,7 @@
   renames = copies
 [alias]
   br = branch
-  ci = commit
+  ci = commit --verbose
   cia = commit --amend
   co = checkout
   cp = cherry-pick
