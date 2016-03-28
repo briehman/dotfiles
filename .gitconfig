@@ -43,6 +43,7 @@
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
 [log]
   decorate = full
+  mailmap = true
 [merge]
   tool = vimdiff
   stat = true
