@@ -1,5 +1,6 @@
 # Grep aliases
 alias grep='grep --color=auto'
+alias gr=grep
 alias ag="ack-grep"
 
 # Vim aliases
@@ -20,6 +21,7 @@ alias g=git
 alias ga="git add"
 alias gs="git status"
 alias gd="git diff"
+alias gdw="git diff --word-diff"
 alias gst="git staged"
 alias gg="git grep"
 alias gl="git log"
