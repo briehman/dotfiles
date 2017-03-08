@@ -22,15 +22,6 @@ if [ $? != 0 ]; then
     tmux new-window -c $startat -t "$SESSIONNAME"
     tmux new-window -c $startat -t "$SESSIONNAME"
     tmux new-window -c $startat -t "$SESSIONNAME"
-    tmux new-window -c $startat -t "$SESSIONNAME"
-  elif [ "$SESSIONNAME" = "maven" ]; then
-    startat=$HOME/dev/backstop-mvn
-    cd $startat
-    _make_session "$SESSIONNAME"
-    tmux new-window -c $startat -t "$SESSIONNAME"
-    tmux new-window -c $startat -t "$SESSIONNAME"
-    tmux new-window -c $startat -t "$SESSIONNAME"
-    tmux new-window -c $HOME/dev/backstop-mainline-mvn -t "$SESSIONNAME"
   fi
 
   tmux select-window -t 0
