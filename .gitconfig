@@ -21,6 +21,7 @@
   cp = cherry-pick
   ctags = !.git/hooks/ctags
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  mb = merge-base
   mod = !git status --porcelain | grep -E '^.M' | cut -c4-
   rb = rebase
   rbc = rebase --continue
@@ -41,6 +42,7 @@
   staged = diff --cached
   t = !git tag | sort -n
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
+  when-merged = "!f() { sha=${1-HEAD}; dest=${2-dev}; git log $sha..HEAD --ancestry-path --oneline --merges --reverse | grep -E "into.*$dest" | head -1; }; f"
 [log]
   decorate = full
   mailmap = true
