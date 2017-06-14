@@ -7,3 +7,7 @@ bindkey '\eq' push-line-or-edit
 # Split on words (spaces) for use in for loops. You can get around this with
 # ${=var}. See http://zsh.sourceforge.net/FAQ/zshfaq03.html for more detail.
 #setopt shwordsplit
+
+# Store directory history and get tab-completion when entering "cd -<TAB>"
+setopt AUTO_PUSHD
+zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
