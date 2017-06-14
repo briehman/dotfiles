@@ -5,6 +5,7 @@ alias ag="ack-grep"
 # Vim aliases
 alias v=vim
 alias vi=vim
+alias vd=vimdiff
 
 # Shell aliases
 alias f=find
@@ -22,6 +23,7 @@ alias gd="git diff"
 alias gst="git staged"
 alias gg="git grep"
 alias gl="git log"
+alias glnm="git log --no-merges"
 alias glr="git log --reverse"
 
 # svn aliases
