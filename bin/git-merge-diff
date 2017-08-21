@@ -1,0 +1,9 @@
+#!/bin/sh
+
+sha=${1?Must provide merge commit}
+shift
+git diff "$@" \
+    $(git merge-base \
+        $(git rev-list --parents -n 1 $sha | awk '{print $2 " " $3 }') \
+    ) \
+    $(git rev-list --parents -n 1 $sha | awk '{print $3 }')

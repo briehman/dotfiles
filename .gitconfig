@@ -23,6 +23,7 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   mb = merge-base
   mod = !git status --porcelain | grep -E '^.M' | cut -c4-
+  md = merge-diff
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
