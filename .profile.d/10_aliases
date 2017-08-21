@@ -1,12 +1,11 @@
-# Grep aliases
-alias grep='grep --color=auto'
-alias gr=grep
+# Unix aliases
 alias ag="ack-grep"
-
-# Vim aliases
+alias d=diff
+alias gr=grep
+alias grep='grep --color=auto'
 alias v=vim
-alias vi=vim
 alias vd=vimdiff
+alias vi=vim
 
 # Shell aliases
 alias f=find
@@ -24,10 +23,12 @@ alias gs="git status"
 alias gd="git diff"
 alias gdw="git diff --word-diff"
 alias gst="git staged"
+alias gf="git fetch"
 alias gg="git grep"
 alias gl="git log"
 alias glnm="git log --no-merges"
 alias glr="git log --reverse"
+alias gp="git pull"
 
 # svn aliases
 alias myb="svn_list_my_branches"
@@ -35,6 +36,11 @@ alias sb="svn_branch"
 alias svs="svn status"
 alias svu="svnup"
 alias svr="svn revert"
+
+# Maven aliases
+alias m=mvn
+alias mc="mvn compile"
+alias mcc="mvn clean compile"
 
 # tmux aliases
 alias tm=tmux
