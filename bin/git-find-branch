@@ -1,0 +1,4 @@
+#!/bin/sh
+
+search=${1?Must provide search text}
+git branch -r | grep -i "$search"
