@@ -6,8 +6,6 @@
   email = brian@riehman.com
 [advice]
   statusHints = false
-[branch]
-  autosetupmerge = true
 [color]
   ui = auto
 [diff]
