@@ -1,4 +1,4 @@
 #!/bin/sh
 
 search=${1?Must provide search text}
-git branch -r | grep -i "$search"
+git branch -a | sed -e 's/\s\+//' | grep -i "$search"

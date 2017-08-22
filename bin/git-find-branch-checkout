@@ -8,8 +8,17 @@ checkout="$(echo "$branch" | head -n 1)"
 if [ -z "$branch" ]; then
     echo "ERROR: Failed to find any branches to check out." >&2
 elif [ $(echo "$branch" | wc -l) -ne 1 ]; then
-    echo "WARNING: Expected to find a single branch result. Press enter to check out first result: $checkout" >&2
+    cat <<EOF
+WARNING: Expected to find a single branch result but found the following:
+
+$branch
+
+Press enter to check out first result or enter the branch to checkout
+EOF
     read input
+    if [ -n "$input" ]; then
+        checkout="$input"
+    fi
 fi
 
 git checkout $checkout
