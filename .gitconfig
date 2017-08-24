@@ -43,7 +43,6 @@
   staged = diff --cached
   t = !git tag | sort -n
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
-  when-merged = "!f() { sha=${1-HEAD}; dest=${2-dev}; git log $sha..HEAD --ancestry-path --oneline --merges --reverse | grep -E "into.*$dest" | head -1; }; f"
 [log]
   decorate = full
   mailmap = true
