@@ -2,7 +2,10 @@
 
 set -e
 
-branch="$(git find-branch $@ | cut -d'/' -f2-)"
+needle="${1?Must provide branch search term}"
+shift
+
+branch="$(git find-branch $needle | cut -d'/' -f2-)"
 checkout="$(echo "$branch" | head -n 1)"
 
 if [ -z "$branch" ]; then
@@ -21,4 +24,4 @@ EOF
     fi
 fi
 
-git checkout $checkout
+git checkout "$@" $checkout
