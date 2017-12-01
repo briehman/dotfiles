@@ -17,6 +17,8 @@
   co = checkout
   cp = cherry-pick
   ctags = !.git/hooks/ctags
+  db = diff-branch
+  dm = "!git diff-branch origin/master HEAD"
   fb = find-branch
   fco = find-branch-checkout
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
