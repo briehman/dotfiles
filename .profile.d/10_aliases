@@ -6,6 +6,8 @@ alias grep='grep --color=auto'
 alias v=vim
 alias vd=vimdiff
 alias vi=vim
+alias gw=./gradlew
+alias c=cat
 
 # Shell aliases
 alias f=find
