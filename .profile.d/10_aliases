@@ -6,7 +6,7 @@ alias grep='grep --color=auto'
 alias v=vim
 alias vd=vimdiff
 alias vi=vim
-alias gw=./gradlew
+alias gw='gcd && ./gradlew'
 alias c=cat
 
 # Shell aliases
@@ -55,3 +55,5 @@ alias vf="vimfind"
 
 # vagrant
 alias vg=vagrant
+
+alias ff=firefox
