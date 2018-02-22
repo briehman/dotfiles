@@ -1,0 +1,7 @@
+#!/bin/sh
+
+base="${1?Must supply base as first argument}"
+rev="${2?Must supply rev as second argument}"
+
+shift 2
+git diff $(git merge-base "$base" "$rev") "$rev" "$@"
