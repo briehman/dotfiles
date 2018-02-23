@@ -7,47 +7,56 @@
 (setq package-enable-at-startup nil)
 (package-initialize)
 
-(require 'evil)
-(evil-mode t)
-(global-evil-surround-mode 1)
+(setq evil-want-C-i-jump nil)
 
-(defun ensure-package-installed (&rest packages)
-  "Assure every package is installed, ask for installation if it’s not.
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-Return a list of installed packages or nil for every skipped package."
-  (mapcar
-   (lambda (package)
-     (if (package-installed-p package)
-         nil
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
-           (package-install package)
-         package)))
-   packages))
+(eval-when-compile (require 'use-package))
 
-;; Make sure to have downloaded archive description.
-(or (file-exists-p package-user-dir)
-    (package-refresh-contents))
+(use-package iedit :ensure t)
+(use-package magit :ensure t)
 
-;; Activate installed packages
-(package-initialize)
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1)
+  (evil-escape-mode)
+  (setq-default evil-escape-key-sequence "jk")
 
-;; Assuming you wish to install "iedit" and "magit"
-(ensure-package-installed 'iedit
-			  'magit
-			  'evil-escape
-			  'evil-surround
-			  'evil-leader)
+  (use-package evil-escape :ensure t)
 
-(global-evil-leader-mode)
-(evil-leader/set-leader ",")
-(evil-leader/set-key
-  "e" (lambda() (interactive)(find-file "~/.emacs"))
-  "s" (lambda() (interactive)(load-file "~/.emacs"))
-  "g" 'magit-status
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader ",")
+    (evil-leader/set-key
+      "e" (lambda() (interactive)(find-file "~/.emacs"))
+      "s" (lambda() (interactive)(load-file "~/.emacs"))
+      "g" 'magit-status
+    )
   )
-(evil-escape-mode)
-(setq-default evil-escape-key-sequence "jj")
-(setq-default evil-escape-key-sequence "jk")
+
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode 1)
+  )
+)
 
 (scroll-bar-mode -1)
 (load-theme 'wombat)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("~/notes/one-on-ones/rodrigo.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
