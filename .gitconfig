@@ -56,4 +56,4 @@
 [init]
   templatedir = ~/.git-template
 [push]
-	default = current
+  default = current
