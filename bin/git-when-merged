@@ -3,5 +3,6 @@
 sha=${1-HEAD}
 dest=${2-dev}
 
+set -x
 git log $sha.. --ancestry-path --oneline --merges --reverse --grep="into.*$dest" \
         | head -1
