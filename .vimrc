@@ -215,7 +215,7 @@ if has('autocmd')
   "   Enable spell-checking
   "   Wrap commit messages at 72 chars
   "   Start in insert mode
-  autocmd BufNewFile,BufReadPost COMMIT_EDITMSG set spell tw=72 | exe "normal ggX" | start
+  autocmd BufNewFile,BufReadPost COMMIT_EDITMSG set spell tw=72 | exe "normal ggX" | start!
   " }}}
   "
   " {{{ svn settings
