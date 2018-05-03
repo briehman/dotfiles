@@ -7,7 +7,7 @@ def get_ref_name
   if File.exists?(rebase_head_file)
     rebase_head = File.read(rebase_head_file)
     symbolic_rebase_head = `git rev-parse --abbrev-ref #{rebase_head} 2>/dev/null`
-    if rebase_head.emty?
+    if symbolic_rebase_head.empty?
       current_head
     else
       symbolic_rebase_head
