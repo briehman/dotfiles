@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+commit_file = ARGV[0]
+
+def get_ref_name
+  rebase_head_file = File.join(ENV['GIT_DIR'], 'rebase-merge', 'head-name')
+  if File.exists?(rebase_head_file)
+    rebase_head = File.read(rebase_head_file)
+    symbolic_rebase_head = `git rev-parse --abbrev-ref #{rebase_head} 2>/dev/null`
+    if rebase_head.emty?
+      current_head
+    else
+      symbolic_rebase_head
+    end
+  else
+    current_head
+  end
+end
+
+def current_head
+  `git symbolic-ref HEAD --short 2>/dev/null`
+end
+
+
+ref = get_ref_name
+branch_regex = /^([A-Z]{2,}-\d+)/
+ref_match = ref.match(branch_regex)
+
+if ref_match
+  first_line = File.open(commit_file, &:readline)
+  unless first_line =~ branch_regex || first_line.start_with?("Merge")
+    new_file = ARGV[0] + '.new'
+    File.open(new_file, 'w') do |f|
+      File.readlines(commit_file).each_with_index do |line, i|
+        f.puts (i == 0 ? ref_match.captures[0] + ' ': '') + line
+      end
+    end
+    File.rename(new_file, commit_file)
+  end
+end
