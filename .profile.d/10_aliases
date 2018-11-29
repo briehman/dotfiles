@@ -3,6 +3,7 @@ alias ag="ack-grep"
 alias d=diff
 alias gr=grep
 alias grep='grep --color=auto'
+alias j=jobs
 alias v=vim
 alias vd=vimdiff
 alias vi=vim
