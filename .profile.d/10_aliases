@@ -7,7 +7,8 @@ alias j=jobs
 alias v=vim
 alias vd=vimdiff
 alias vi=vim
-alias gw='gcd && ./gradlew'
+alias gw=gradle_wrapper
+alias mw=mvn_wrapper
 alias c=cat
 
 # Shell aliases

@@ -87,3 +87,11 @@ svnup() {
     mpg123 ~/Downloads/doink-doink.mp3  >/dev/null 2>/dev/null
     svn update
 }
+
+gradle_wrapper() {
+  $(git rev-parse --show-toplevel)/gradlew "$@"
+}
+
+mvn_wrapper() {
+  $(git rev-parse --show-toplevel)/mvnw "$@"
+}
