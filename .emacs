@@ -48,12 +48,6 @@
 
 (scroll-bar-mode -1)
 (load-theme 'wombat)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/notes/one-on-ones/rodrigo.org"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -63,3 +57,18 @@
 
 ;; hide startup
 (setq inhibit-startup-screen t)
+
+(setq org-default-notes-file "~/Dropbox/notes/notes.org")
+(define-key global-map "\C-cc" 'org-capture)
+(define-key global-map "\C-ca" `org-agenda)
+
+(setq org-agenda-files
+      (list
+        "~/Dropbox/notes/backstop/one-on-ones/ariel.org"
+        "~/Dropbox/notes/backstop/one-on-ones/ben.org"
+        "~/Dropbox/notes/backstop/one-on-ones/brian.org"
+        "~/Dropbox/notes/backstop/one-on-ones/doug.org"
+        "~/Dropbox/notes/backstop/one-on-ones/rich.org"
+        "~/Dropbox/notes/backstop/one-on-ones/rodrigo.org"
+        "~/Dropbox/notes/backstop/agenda.org"
+        ))
