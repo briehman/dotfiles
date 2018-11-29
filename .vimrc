@@ -31,7 +31,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'vim-scripts/Colour-Sampler-Pack'
 Bundle 'vim-scripts/ScrollColors'
-Bundle 'vim-scripts/taglist.vim'
+Bundle 'prettier/vim-prettier'
 
 " All of your Plugins must be added before the following line
 " All of your Plugins must be added before the following line
@@ -403,3 +403,6 @@ autocmd BufWinLeave * call clearmatches()
 
 " Set the window title to the path we started vim with instead of "Thanks for " flying Vim!"
 let &titleold=getcwd()
+
+map <leader>p :Prettier<cr>
+autocmd BufWritePre *.js Prettier
