@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ "$(git config --get --default false config.remove-merged.debug)" = "true" ]; then
+  set -x
+fi
+
+get_official_branches() {
+  git config --get-all config.remove-merged.official-branches || echo master
+}
+
+get_primary_branch() {
+  git config --get --default master config.remove-merged.primary-branch
+}
+
+get_refs_to_remove() {
+  local primary_branch="$1"
+  comm -23 \
+    <(git for-each-ref --merged=refs/heads/"$primary_branch" --format='%(refname:short)' refs/heads | sort) \
+    <(get_official_branches | sort)
+}
+
+primary_branch="$(get_primary_branch)"
+to_remove="$(get_refs_to_remove $primary_branch)"
+
+if [ -n "$to_remove" ]; then
+  echo "The following branches are merged into $primary_branch and will be removed:"
+  echo "$to_remove"
+  echo "Hit Enter to continue o continue or Ctrl-C to abort."
+  read input
+  echo git branch -d $to_remove
+fi

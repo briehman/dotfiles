@@ -1,0 +1,60 @@
+#!/bin/bash
+
+if [ "$(git config --get --default false config.remove-merged.debug)" = "true" ]; then
+  set -x
+fi
+
+get_official_branches() {
+  git config --get-all config.remove-merged.official-branches || echo master
+}
+
+get_primary_branch() {
+  git config --get --default master config.remove-merged.primary-branch
+}
+
+get_primary_upstream_ref() {
+  git for-each-ref --format='%(upstream)' refs/heads/$(get_primary_branch)
+}
+
+get_refs_to_remove() {
+  local remote="$1"
+  local upstream_branch="$(get_primary_upstream_ref)"
+
+  if [ -z "$upstream_branch" ]; then
+    echo "ERROR: No upstream branch defined for primary branch $(get_primary_branch)." >&2
+    echo "       Does the branch exist? Does it have an upstream set"? >&2
+    exit 1
+  fi
+
+  merged_refs="$(git for-each-ref \
+    --merged="$upstream_branch" \
+    --format='%(refname:lstrip=3)' \
+    refs/remotes/"$remote" \
+    | grep -Ev "^HEAD$")"
+
+  if [ "$(git config --type=bool --default false --get config.remove-merged.username-branch)" = "true" ]; then
+    username="$(git config --default "$(whoami)" config.remove-merged.username)"
+    filtered_merged_refs="$(echo $merged_refs | grep $username)"
+  else
+    filtered_merged_refs="$merged_refs"
+  fi
+
+  comm -23 \
+    <(echo "$filtered_merged_refs" | sort) \
+    <(get_official_branches | sort)
+}
+
+remote=${1:-origin}
+
+echo "Pruning remote $remote"
+git remote prune $remote
+
+to_remove="$(get_refs_to_remove $remote)"
+
+if [ -n "$to_remove" ]; then
+  echo "The following branches are merged into $upstream_branch and will be removed from remote '$remote'."
+  echo "$to_remove"
+  echo "Hit Enter to continue o continue or Ctrl-C to abort."
+  read input
+  git push $remote --delete $(echo $to_remove | xargs)
+fi
