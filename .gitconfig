@@ -29,10 +29,12 @@
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
-  rp = remote prune
   rl = reflog
+  rmm = remove-merged
+  rp = remote prune
   rs = remote show
   rt = remote
+  rtrmm = remote-remove-merged
   ru = remote update
   sb = show-branch
   sm = submodule
