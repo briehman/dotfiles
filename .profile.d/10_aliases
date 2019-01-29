@@ -19,6 +19,7 @@ alias ls="ls --color=auto"
 alias ll="ls -Al --color=auto"
 alias lld="ls -Ald --color=auto"
 alias xg="xargs grep"
+alias ..="cd .."
 
 # Git aliases
 alias g=git
