@@ -27,5 +27,5 @@ if [ -n "$to_remove" ]; then
   echo "$to_remove"
   echo "Hit Enter to continue o continue or Ctrl-C to abort."
   read input
-  echo git branch -d $to_remove
+  git branch -d $to_remove
 fi
