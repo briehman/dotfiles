@@ -4,10 +4,10 @@
 set -x
 
 _make_session() {
-    tmux new-session -s "$1" -d
+    TMUX= tmux new-session -s "$1" -d
 }
 
-tmux has-session -t $SESSIONNAME 2>/dev/null
+tmux has-session -t=$SESSIONNAME 2>/dev/null
 
 if [ $? != 0 ]; then
   if [ "$SESSIONNAME" = "system" ]; then
@@ -24,6 +24,7 @@ if [ $? != 0 ]; then
     tmux new-window -c $startat -t "$SESSIONNAME"
   fi
 
+  tmux switch-client -t "$SESSIONNAME"
   tmux select-window -t 0
 fi
 
