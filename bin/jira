@@ -1,0 +1,25 @@
+#!/bin/sh
+
+: ${JIRA_URL?JIRA_URL environment variable must be set}
+
+open_urls() {
+  for i in "$@"; do
+    num_fields=$(echo "$i" | awk -F'-' '{ print NF }')
+    if [ "$num_fields" -lt 2 ]; then
+      i="${JIRA_DEFAULT_PROJECT?Must set JIRA_DEFAULT_PROJECT environment variable if not supplying a project}-$i"
+    fi
+    xdg-open "$JIRA_URL/browse/$i"
+  done
+}
+
+if [ $# -eq 0 ]; then
+  ticket=$(git rev-parse --abbrev-ref HEAD 2>/dev/null | cut -d'-' -f1-2)
+  if [ -z "$ticket" ]; then
+    echo "ERROR: Unable to determine ticket from current Git branch" >&2
+    exit 1
+  else
+    open_urls "$ticket"
+  fi
+else
+  open_urls "$@"
+fi
