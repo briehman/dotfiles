@@ -13,3 +13,4 @@ done
 unset -f _source_path
 
 source $HOME/.zshrc.d/zaw/zaw.zsh
+. $HOME/dotfiles/lib/z.sh
