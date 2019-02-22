@@ -60,3 +60,6 @@ alias vf="vimfind"
 alias vg=vagrant
 
 alias ff=firefox
+
+# directories
+alias dotf="cd ~/dotfiles"
