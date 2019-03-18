@@ -10,6 +10,12 @@
 (setq evil-want-C-i-jump nil)
 (setq vc-follow-symlinks t)
 
+;; Org
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    ;; Enable automatic line wrapping at fill column
+	    (auto-fill-mode t)))
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
