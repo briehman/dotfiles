@@ -8,6 +8,7 @@
 (package-initialize)
 
 (setq evil-want-C-i-jump nil)
+(setq vc-follow-symlinks t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
