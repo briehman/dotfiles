@@ -1,0 +1,253 @@
+#!/usr/bin/env ruby
+
+require 'dotenv'
+require 'json'
+require 'restclient'
+require 'getoptlong'
+require 'uri'
+
+def create_settings
+  settings = {
+    :jira => {
+      :url => ENV['JIRA_URL'],
+    },
+    :gitlab => {
+      :default_project => ENV['GITLAB_DEFAULT_PROJECT'] || 'group/project',
+      :url =>  ENV['GITLAB_URL'],
+      :icon => "#{ENV['GITLAB_URL']}/assets/favicon-7901bd695fb93edb07975966062049829afb56cf11511236e61bcf425070e36e.png",
+    }
+  }
+
+  settings[:jira][:api_base] = "#{settings[:jira][:url]}/rest/api/2"
+  settings[:gitlab][:api_base] = "#{settings[:gitlab][:url]}/api/v4/"
+  settings
+end
+
+def parse_params(params)
+  opts = GetoptLong.new(
+    [ '--branch', '-b', GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--environment', '-e', GetoptLong::NO_ARGUMENT ],
+    [ '--debug', '-d', GetoptLong::NO_ARGUMENT ],
+    [ '--help', '-h', GetoptLong::NO_ARGUMENT ],
+    [ '--project', '-p', GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--target', '-t', GetoptLong::REQUIRED_ARGUMENT ],
+    [ '--ticket', '-k', GetoptLong::REQUIRED_ARGUMENT ]
+  )
+
+  opts.each do |opt, arg|
+    case opt
+    when '--help'
+      puts <<-EOF
+create-merge-request [OPTION] ...
+
+Summary:
+
+Creates a GitLab merge request and links it to its associated JIRA ticket. The
+script will use an existing merge request if one already exists and also will
+not link to the JIRA ticket if a GitLab link already exists. It should be safe
+to rerun.
+
+Setup:
+
+This script requires several secret variables to be provided by reading in a
+.env file. The default location for the .env file is #{params[:env]}.
+The following variables should be set in that file:
+
+JIRA_USERNAME - The username for the JIRA account
+JIRA_PASSWWORD - The password for the JIRA account
+GITLAB_PRIVATE_TOKEN - A generated GitLab token for the GitLab account
+
+Follow these steps to generate the GitLab private token:
+- Login to GitLab
+- Navigate to your settings by clicking the user icon in the top right and
+  clicking 'Settings'
+- Click 'Access Tokens' on the left hand menu
+- Generate a new named Access Token with the scope 'api'
+- Click 'Create Personal Access Token' and store the token in the .env file
+
+Flags:
+
+--branch FB-12345-user.name, -b FB-12345-username
+   Specify the source branch to create a merge request for. This should be the
+   Git branch name.
+
+-d, --debug
+   Enable debug output
+
+--environment /path/to/file, -e /path/to/file
+   Path for the .env file to load that will containt the appropriate required
+   variables.
+
+-h, --help
+   show help
+
+--project 'group/project', -p group_name/project_name
+   The GitLab group and project pair such as 'company_name/project_name' for
+   which the merge request should be created. This defaults to
+   '#{settings[:gitlab][:default_project]}'.
+
+--target dev, -t prod
+   Specify the target branch to merge into. By default, this is 'dev'.
+
+--ticket PROJ-12345, -k PROJ-12345
+   Specify the ticket key for the merge request to create. This will be be
+   parsed from the branch name if it matches the format
+   "PROJECT-123-user.name".
+      EOF
+      exit 1
+    when '--debug'
+      params[:debug] = true
+    when '--branch'
+      params[:source_branch] = arg
+    when '--environment'
+      params[:env] = arg
+    when '--target'
+      params[:target_branch] = arg
+    when '--project'
+      params[:project] = arg
+    when '--ticket'
+      params[:ticket] = arg
+    end
+  end
+
+  unless params[:source_branch] then
+    STDERR.puts "ERROR: Must supply Git branch flag using -b or --branch. "
+    exit 1
+  end
+
+  unless params[:ticket]
+    branch_parts = params[:source_branch].split('-')
+    if branch_parts.size > 2
+      params[:ticket] = branch_parts.slice(0, 2).join('-')
+    else
+      STDERR.puts("Failed to identify the ticket from the branch name. " + \
+                  "Either rename the branch to start with the ticket or " + \
+                  "specify the ticket via flags.")
+      exit 1
+    end
+  end
+
+  params
+end
+
+def get_jira_ticket(jira_resource, ticket_key)
+  raw_output = jira_resource["issue/#{ticket_key}?fields=summary"].get(:content_type => 'application/json')
+  JSON.parse(raw_output)
+end
+
+def get_gitlab_project_id(settings, project_name)
+  project_name = project_name.gsub('/', '%2F')
+  gitlab_project = JSON.parse(RestClient.get(
+    "#{settings[:api_base]}/projects/#{project_name}",
+    { 'Private-Token' => settings[:token] }
+  ))
+  gitlab_project['id']
+end
+
+def create_gitlab_merge_request(settings, params, ticket, project_id)
+  title = "#{ticket['key']} #{ticket['fields']['summary']}"
+  description = "Closes #{ticket['key']}"
+  begin
+    gitlab_raw_response = RestClient.post(
+      "#{settings[:api_base]}/projects/#{project_id}/merge_requests",
+      {
+        'source_branch' => params[:source_branch],
+        'target_branch' => params[:target_branch],
+        'title' => title,
+        'description' => description,
+        'remove_source_branch' => 'true',
+      },
+      { 'Private-Token' => settings[:token] }
+    )
+
+    merge_request = JSON.parse(gitlab_raw_response)
+    puts "Created merge request at #{merge_request['web_url']}"
+    merge_request
+  rescue RestClient::Conflict => e
+    results = JSON.parse(RestClient.get(
+      "#{settings[:api_base]}/projects/#{project_id}/merge_requests",
+      {
+        'params' => {
+          'source_branch' => params[:source_branch],
+          'target_branch' => params[:target_branch]
+        },
+        'Private-Token' => settings[:token]
+      }
+    ))
+    merge_request = results[0]
+    puts "Using existing merge request #{merge_request['web_url']}"
+    merge_request
+  end
+
+end
+
+def link_jira_ticket(settings, jira_resource, ticket, merge_request)
+  merge_request_url = merge_request['web_url']
+  current_links = JSON.parse(jira_resource["issue/#{ticket['key']}/remotelink"].get(:content_type => 'application/json'))
+  current_gitlab_links = current_links.select { |link|
+    link['object']['url'] == merge_request_url
+  }
+
+  if current_gitlab_links.empty?
+    link_raw_output = jira_resource["issue/#{ticket['key']}/remotelink"].post(
+      {
+        :object => {
+          :url => merge_request_url,
+          :title => "GitLab Merge Request",
+          :icon => {
+            "url16x16" => settings[:gitlab][:icon],
+            :gitlab => "GitLab Merge Request"
+          },
+        }
+      }.to_json, {:content_type => 'application/json' })
+    puts "Successfully linked to ticket #{settings[:jira][:url]}/browse/#{ticket['key']}"
+    JSON.parse(link_raw_output)
+  else
+    puts "Ticket #{settings[:jira][:url]}/browse/#{ticket['key']} already linked to merge request. Not linking."
+  end
+end
+
+def create_and_link_merge_request(settings, params)
+  jira_resource = RestClient::Resource.new(
+    settings[:jira][:api_base],
+    :user => settings[:jira][:username],
+    :password => settings[:jira][:password])
+
+  ticket = get_jira_ticket(jira_resource, params[:ticket])
+  project_id = get_gitlab_project_id(settings[:gitlab], params[:project])
+  merge_request = create_gitlab_merge_request(settings[:gitlab], params, ticket, project_id)
+  link = link_jira_ticket(settings, jira_resource, ticket, merge_request)
+end
+
+def main
+  default_params = {
+    :env => File.join(__dir__, '.env'),
+    :source_branch => nil,
+    :target_branch => 'dev',
+  }
+
+  settings = create_settings()
+  params = parse_params(default_params)
+
+  puts "Environment file: #{params[:env]}" if params[:debug]
+  Dotenv.load(params[:env])
+
+  settings[:jira][:username] = ENV['JIRA_USERNAME']
+  settings[:jira][:password] = ENV['JIRA_PASSWORD']
+  settings[:gitlab][:token] = ENV['GITLAB_PRIVATE_TOKEN']
+
+  unless settings[:jira][:username] and settings[:jira][:password] and settings[:gitlab][:token]
+    STDERR.puts "JIRA Username and password and GitLab token are required. " \
+      + "Be sure that the #{params[:env]} contains the appropriate values: " \
+      + "JIRA_USERNAME, JIRA_PASSWORD, and GITLAB_PRIVATE_TOKEN"
+    exit 1
+  end
+
+  puts "Project: #{params[:project]}"
+  puts "Branch #{params[:source_branch]} -> #{params[:target_branch]}"
+  puts "Ticket key #{params[:ticket]}\n"
+
+  create_and_link_merge_request(settings, params)
+end
+
+main

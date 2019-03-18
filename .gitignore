@@ -1,3 +1,4 @@
+.env
 .vim/backup/*
 .vim/cache/ctrlp/*
 .vim/tmp/*
