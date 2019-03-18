@@ -78,8 +78,15 @@
         "~/Dropbox/notes/backstop/one-on-ones/rich.org"
         "~/Dropbox/notes/backstop/one-on-ones/rodrigo.org"
         "~/Dropbox/notes/backstop/agenda.org"
+        "~/Dropbox/notes/gtd.org"
         ))
 
+(setq org-capture-templates
+ '(("t" "Todo" entry (file+headline "~/Dropbox/notes/gtd.org" "Tasks")
+        "* TODO %?\n  %i\n  %a")
+   ("n" "Notes" entry (file+datetree "~/Dropbox/notes/notes.org")
+    "* %?\nEntered on %U\n  %i\n  %a")
+   ))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
