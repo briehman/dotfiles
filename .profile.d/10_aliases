@@ -10,6 +10,7 @@ alias vi=vim
 alias gw=gradle_wrapper
 alias mw=mvn_wrapper
 alias c=cat
+alias xo=xdg-open
 
 # Shell aliases
 alias f=find
@@ -63,3 +64,4 @@ alias ff=firefox
 
 # directories
 alias dotf="cd ~/dotfiles"
+alias org="cd ~/org"
