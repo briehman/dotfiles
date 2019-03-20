@@ -81,6 +81,15 @@
         "~/org/gtd.org"
         ))
 
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)"))
+
+(setq org-todo-keyword-faces
+      '(("CANCELLED" :foreground "grey" :weight bold)
+	("FAILED" :foreground "red" :weight bold)
+	("PARTIALLY_DONE" :foreground "orange")
+	("DONE" :foreground "light green" :weight bold)))
+
 (setq org-capture-templates
  '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
         "* TODO %?\n  %i\n  %a")
@@ -89,6 +98,7 @@
    ("n" "Notes" entry (file+datetree "~/org/notes.org")
     "* %?\nEntered on %U\n  %i\n  %a")
    ))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -100,4 +110,5 @@
       ("FAILED" . "red")
       ("PARTIALLY_DONE" . "orange")
       ("CANCELED" . "grey")
-      ("DONE" . "green"))))))
+      ("DONE" . "light green")
+      ("DELEGATED" . "light blue")))))
