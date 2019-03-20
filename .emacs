@@ -65,26 +65,28 @@
 ;; hide startup
 (setq inhibit-startup-screen t)
 
-(setq org-default-notes-file "~/Dropbox/notes/notes.org")
+(setq org-default-notes-file "~/org/notes.org")
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" `org-agenda)
 
 (setq org-agenda-files
       (list
-        "~/Dropbox/notes/backstop/one-on-ones/ariel.org"
-        "~/Dropbox/notes/backstop/one-on-ones/ben.org"
-        "~/Dropbox/notes/backstop/one-on-ones/brian.org"
-        "~/Dropbox/notes/backstop/one-on-ones/doug.org"
-        "~/Dropbox/notes/backstop/one-on-ones/rich.org"
-        "~/Dropbox/notes/backstop/one-on-ones/rodrigo.org"
-        "~/Dropbox/notes/backstop/agenda.org"
-        "~/Dropbox/notes/gtd.org"
+        "~/org/backstop/one-on-ones/ariel.org"
+        "~/org/backstop/one-on-ones/ben.org"
+        "~/org/backstop/one-on-ones/brian.org"
+        "~/org/backstop/one-on-ones/doug.org"
+        "~/org/backstop/one-on-ones/rich.org"
+        "~/org/backstop/one-on-ones/rodrigo.org"
+        "~/org/backstop/agenda.org"
+        "~/org/gtd.org"
         ))
 
 (setq org-capture-templates
- '(("t" "Todo" entry (file+headline "~/Dropbox/notes/gtd.org" "Tasks")
+ '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
         "* TODO %?\n  %i\n  %a")
-   ("n" "Notes" entry (file+datetree "~/Dropbox/notes/notes.org")
+   ("b" "Backstop TODO" entry (file+datetree "~/org/backstop/agenda.org" "Tasks")
+    "* TODO %?\n  %i\n")
+   ("n" "Notes" entry (file+datetree "~/org/notes.org")
     "* %?\nEntered on %U\n  %i\n  %a")
    ))
 (custom-set-variables
