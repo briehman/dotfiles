@@ -82,7 +82,7 @@
         ))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)"))
+      '((sequence "TODO(t)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)")))
 
 (setq org-todo-keyword-faces
       '(("CANCELLED" :foreground "grey" :weight bold)
@@ -111,4 +111,4 @@
       ("PARTIALLY_DONE" . "orange")
       ("CANCELED" . "grey")
       ("DONE" . "light green")
-      ("DELEGATED" . "light blue")))))
+      ("DELEGATED" . "light blue"))))))
