@@ -55,7 +55,7 @@ if [ -n "$to_remove" ]; then
   upstream_branch="$(get_primary_upstream_ref)"
   echo "The following branches are merged into $upstream_branch and will be removed from remote '$remote'."
   echo "$to_remove"
-  echo "Hit Enter to continue o continue or Ctrl-C to abort."
+  echo "Hit Enter to continue or Ctrl-C to abort."
   read input
   git push $remote --delete $(echo $to_remove | xargs)
 fi
