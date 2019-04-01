@@ -88,17 +88,38 @@
         ))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)")))
+      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
+	;; Sequence for MULTIMEDIA
+         ;; CONSUME means to read (articles, books, quote, etc.), play (games), listen (music), or watch (a series or movie)
+         ;; CONSUMING means currently consuming
+         ;; CONSUMED means it has been completed
+         ;; IGNORED means not read and no desire to read in the future
+	(sequence "CONSUME(r@/!)" "CONSUMING(l@/!)" "|" "CONSUMED(x@/!)" "IGNORED(i@/!)")
+
+	;; Sequence for POSSESSIONS
+         ;; PURCHASE means to buy; it's functionally the wishlist
+         ;; SELL means you want to get rid of it
+         ;; DONATE means you want to get rid of it
+         ;; UNWANTED is for no longer wanted
+         ;; OWN is for stuff you actually own (may be overlap for reference and own)
+         ;; GIFTED is given to someone as a gift
+         ;; SOLD is sold to someone
+         ;; DISCARDED is for thrown out
+         ;; DONATED is for when it has been given away
+         (sequence "PURCHASE(p@/!)" "SELL(k@/!)" "DONATE(@/!)" "|" "UNWANTED(a@/!)" "OWN(o@/!)" "GIFTED(g@/!)"  "SOLD(c@/!)" "DISCARDED(q@/!)" "DONATED(q@/!)")))
 
 (setq org-todo-keyword-faces
       '(("CANCELLED" :foreground "grey" :weight bold)
+	("DELEGATED" :foreground "light blue" :weight bold)
+	("DONE" :foreground "light green" :weight bold)
 	("FAILED" :foreground "red" :weight bold)
-	("PARTIALLY_DONE" :foreground "orange")
-	("DONE" :foreground "light green" :weight bold)))
+	("ARTIALLY_DONE" :foreground "orange")
+	("WAITING" :foreground "yellow")
+	))
 
 (setq org-capture-templates
  '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-        "* TODO %?\n  %i\n  %a")
+        "* TODO %?\n  %i")
    ("b" "Backstop TODO" entry (file+datetree "~/org/backstop/agenda.org" "Tasks")
     "* TODO %?\n  %i\n")
    ("n" "Notes" entry (file+datetree "~/org/notes.org")
