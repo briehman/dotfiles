@@ -1,10 +1,12 @@
 #!/bin/bash
 
-branch="$(git rev-parse --abbrev-ref HEAD | cut -d '-' -f1-3)"
+branch="$(git rev-parse --abbrev-ref HEAD)"
+default_merge_branch="$(echo "$branch" | cut -d '-' -f1-3)"
 project="$(git config --get config.merge-request.project)"
 target="$(git config --get config.merge-request.target)"
+merge_branch="$(git config --get --default "$default_merge_branch" "branch.$branch.merge-request-branch")"
 
-create-merge-request --branch "$branch" \
+create-merge-request --branch "$merge_branch" \
   $(test -n "$project" && echo "--project $project") \
   $(test -n "$target" && echo "--target $target") \
   "$@"
