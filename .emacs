@@ -9,6 +9,7 @@
 
 (setq evil-want-C-i-jump nil)
 (setq vc-follow-symlinks t)
+(setq jiralib-url "https://jira.backstop.solutions")
 
 ;; Org
 (add-hook 'org-mode-hook
@@ -75,16 +76,6 @@
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" `org-agenda)
 
-;; ignore TODO items that are scheduled in the future when viewing
-;; the global TODO list
-'(org-agenda-todo-ignore-scheduled (quote future))
-
-;; log state changes into the LOGBOOK drawer
-'(org-log-into-drawer t)
-
-;; log when items get marked done so we can track this later
-'(org-log-done t)
-
 (setq org-agenda-files
       (list
         "~/org/backstop/one-on-ones/ariel.org"
@@ -141,6 +132,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
+ ;; ignore TODO items that are scheduled in the future when viewing
+ ;; the global TODO list
+ '(org-agenda-todo-ignore-scheduled (quote future))
+
+ ;; log state changes into the LOGBOOK drawer
+ '(org-log-into-drawer t)
+
+ ;; log when items get marked done so we can track this later
+ '(org-log-done t)
 
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
