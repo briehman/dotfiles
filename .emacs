@@ -140,6 +140,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-todo-ignore-scheduled (quote future))
+ '(org-hide-leading-stars t)
  '(org-log-done t)
  '(org-log-into-drawer t)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
