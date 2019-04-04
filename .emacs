@@ -118,6 +118,13 @@
 	("WAITING" :foreground "yellow")
 	))
 
+(setq org-agenda-custom-commands
+      '(
+        ("w" todo "WAITING")
+        ("W" todo-tree "WAITING")
+        ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}")
+	))
+
 (setq org-capture-templates
  '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
         "* TODO %?\n  %i")
@@ -132,21 +139,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- ;; ignore TODO items that are scheduled in the future when viewing
- ;; the global TODO list
  '(org-agenda-todo-ignore-scheduled (quote future))
-
- ;; log state changes into the LOGBOOK drawer
- '(org-log-into-drawer t)
-
- ;; log when items get marked done so we can track this later
  '(org-log-done t)
-
+ '(org-log-into-drawer t)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
- '(org-refile-use-outline-path t)
-
+ '(org-refile-use-outline-path (quote file))
  '(safe-local-variable-values
    (quote
     ((org-todo-keyword-faces
