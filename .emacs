@@ -154,3 +154,9 @@
       ("CANCELED" . "grey")
       ("DONE" . "light green")
       ("DELEGATED" . "light blue"))))))
+
+(let ((default-directory  "~/.emacs.d/elisp/"))
+  (normal-top-level-add-to-load-path '("."))
+  (normal-top-level-add-subdirs-to-load-path))
+
+(require 'org-checklist)

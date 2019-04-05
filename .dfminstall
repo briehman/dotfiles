@@ -2,3 +2,5 @@ README.md skip
 .ssh recurse
 setup.sh skip
 setup.sh exec
+.emacs~ skip
+.emacs.d recurse
