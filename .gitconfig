@@ -30,6 +30,7 @@
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
+  redo = commit --amend -C HEAD
   rl = reflog
   rmm = remove-merged
   rp = remote prune
