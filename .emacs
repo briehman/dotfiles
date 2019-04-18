@@ -76,26 +76,10 @@
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" `org-agenda)
 
-(setq org-agenda-files
-      (list
-        "~/org/backstop/one-on-ones/ariel.org"
-        "~/org/backstop/one-on-ones/ben.org"
-        "~/org/backstop/one-on-ones/brian.org"
-        "~/org/backstop/one-on-ones/doug.org"
-        "~/org/backstop/one-on-ones/rich.org"
-        "~/org/backstop/one-on-ones/rodrigo.org"
-        "~/org/backstop/agenda.org"
-        "~/org/gtd.org"
-        ))
+(setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
 
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
-	;; Sequence for MULTIMEDIA
-         ;; CONSUME means to read (articles, books, quote, etc.), play (games), listen (music), or watch (a series or movie)
-         ;; CONSUMING means currently consuming
-         ;; CONSUMED means it has been completed
-         ;; IGNORED means not read and no desire to read in the future
-	(sequence "CONSUME(r@/!)" "CONSUMING(l@/!)" "|" "CONSUMED(x@/!)" "IGNORED(i@/!)")
 
 	;; Sequence for POSSESSIONS
          ;; PURCHASE means to buy; it's functionally the wishlist
@@ -114,15 +98,15 @@
 	("DELEGATED" :foreground "light blue" :weight bold)
 	("DONE" :foreground "light green" :weight bold)
 	("FAILED" :foreground "red" :weight bold)
-	("ARTIALLY_DONE" :foreground "orange")
-	("WAITING" :foreground "yellow")
+	("PARTIALLY_DONE" :foreground "orange")
+	("WAITING" :foreground "yellow" :weight bold)
 	))
 
 (setq org-agenda-custom-commands
       '(
         ("w" todo "WAITING")
         ("W" todo-tree "WAITING")
-        ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}")
+        ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
 	))
 
 (setq org-capture-templates
@@ -132,6 +116,8 @@
     "* TODO %?\n  %i\n")
    ("n" "Notes" entry (file+datetree "~/org/notes.org")
     "* %?\nEntered on %U\n  %i\n  %a")
+   ("1" "1:1 entry" entry (file+datetree "~/org/refile.org" "1:1s")
+    (file "~/org/templates/1on1.org"))
    ))
 
 (custom-set-variables
@@ -140,11 +126,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-todo-ignore-scheduled (quote future))
+ '(org-cycle-emulate-tab (quote white))
+ '(org-default-priority 67)
  '(org-hide-leading-stars t)
  '(org-log-done t)
  '(org-log-into-drawer t)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
- '(org-refile-targets (quote ((org-agenda-files :level . 1))))
+ '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
  '(org-refile-use-outline-path (quote file))
  '(safe-local-variable-values
    (quote
