@@ -109,23 +109,39 @@
         ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
 	))
 
-(setq org-capture-templates
- '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
-        "* TODO %?\n  %i")
-   ("b" "Backstop TODO" entry (file+datetree "~/org/backstop/agenda.org" "Tasks")
-    "* TODO %?\n  %i\n")
-   ("n" "Notes" entry (file+datetree "~/org/notes.org")
-    "* %?\nEntered on %U\n  %i\n  %a")
-   ("1" "1:1 entry" entry (file+datetree "~/org/refile.org" "1:1s")
-    (file "~/org/templates/1on1.org"))
-   ))
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-todo-ignore-scheduled (quote future))
+ '(org-capture-templates
+   (quote
+    (("p" "Personal item")
+     ("pj" "Journal" entry
+      (file+olp+datetree "~/org/journal.org")
+      "* %?
+Entered on %U
+  %a")
+     ("pn" "Notes" entry
+      (file+olp+datetree "~/org/notes.org")
+      "* %?
+Entered on %U
+  %i
+  %a")
+     ("pt" "Todo" entry
+      (file+headline "~/org/gtd.org" "Tasks")
+      "* TODO %?
+  %i")
+     ("w" "Work item")
+     ("wt" "TODO" entry
+      (file+olp+datetree "~/org/backstop/agenda.org" "Tasks")
+      "* TODO %?
+  %i
+")
+     ("w11" "1:1 entry" entry
+      (file+olp+datetree "~/org/refile.org" "1:1s")
+      (file "~/org/templates/1on1.org")))))
  '(org-cycle-emulate-tab (quote white))
  '(org-default-priority 67)
  '(org-hide-leading-stars t)
