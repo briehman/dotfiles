@@ -1,7 +1,9 @@
-.env
 .*~
+.env
 .vim/backup/*
 .vim/cache/ctrlp/*
+.vim/spell/*
 .vim/tmp/*
 .vim/undodir/*
 .vim/yankring_history_*
+\#*
