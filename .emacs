@@ -144,6 +144,7 @@ Entered on %U
       (file "~/org/templates/1on1.org")))))
  '(org-cycle-emulate-tab (quote white))
  '(org-default-priority 67)
+ '(org-enforce-todo-dependencies t)
  '(org-hide-leading-stars t)
  '(org-log-done t)
  '(org-log-into-drawer t)
