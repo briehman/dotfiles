@@ -148,6 +148,7 @@ Entered on %U
  '(org-hide-leading-stars t)
  '(org-log-done t)
  '(org-log-into-drawer t)
+ '(org-log-reschedule (quote time))
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
  '(org-refile-use-outline-path (quote file))
