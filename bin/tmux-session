@@ -22,6 +22,9 @@ if [ $? != 0 ]; then
     tmux new-window -c $startat -t "$SESSIONNAME"
     tmux new-window -c $startat -t "$SESSIONNAME"
     tmux new-window -c $startat -t "$SESSIONNAME"
+  else
+    echo "Unknown session requested" >&2
+    exit 1
   fi
 
   tmux switch-client -t "$SESSIONNAME"
