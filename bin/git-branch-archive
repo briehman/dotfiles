@@ -1,0 +1,76 @@
+#!/usr/bin/env sh
+
+usage() {
+    cat <<EOF
+$(basename $0): [-f filename] -b base_ref -r ref [-h] [-C git_dir]
+
+Produce a zip archive of the branch commits and commit messages.
+
+  -b base_ref           the base ref from which to begin the archive
+  -f filename           the output filename to use
+  -h                    display this help
+  -r ref                the ref to archive
+  -q                    quiet mode
+  -C git_dir            execute git commands from the provided directory
+EOF
+}
+
+while getopts "f:b:r:hq" arg; do
+  case $arg in
+    b) base_ref="$OPTARG" ;;
+    f) filename="$OPTARG" ;;
+    h) usage; exit 1; ;;
+    q) quiet=1 ;;
+    r) ref="$OPTARG" ;;
+    C) git_dir="$OPTARG" ;;
+  esac
+done
+
+if [ -z "$base_ref" ]; then
+  echo "Base ref is required" >&2
+  exit 1
+fi
+
+if [ -z "$ref" ]; then
+  ref="$(git rev-parse --abbrev-ref --symbolic-full-name HEAD)"
+fi
+
+if [ -z "$git_dir" ]; then
+  git_dir="."
+fi
+
+shift $((OPTIND-1))
+
+clean_up() {
+    rm -rf "$OUTPUT_DIR"
+}
+
+OUTPUT_DIR="$(/bin/mktemp --tmpdir --directory "branch-archive-XXXX")"
+trap clean_up EXIT HUP INT TERM
+
+merge_base=$(git -C $git_dir merge-base $base_ref $ref)
+ref_basename="$(basename $ref)"
+
+branch_output="${OUTPUT_DIR}/$ref_basename"
+commit_output="$branch_output/commits.txt"
+
+mkdir -p "$branch_output"
+rm -f $commit_output && touch $commit_output
+
+set -e
+
+for rev in $(git -C $git_dir rev-list $merge_base..$ref --no-merges); do
+    git -C $git_dir log -1 $rev >> $commit_output
+    echo "" >> $commit_output
+    git -C $git_dir show $rev > "$branch_output/$rev.patch"
+done
+
+if [ -z "$filename" ]; then
+  filename="${ref_basename}.zip"
+fi
+
+zip --quiet --junk-paths --recurse-paths "$filename" $branch_output
+
+if [ "$quiet" != 1 ]; then
+  echo "Created file $filename"
+fi

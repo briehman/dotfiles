@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+clean_up() {
+    rm -rf "$ticket.zip"
+}
+
+ticket="$(git ticket)"
+branch_name="$(git rev-parse --abbrev-ref --symbolic-full-name HEAD)"
+
+git branch-archive -q -b origin/dev -f $branch_name.zip
+trap clean_up EXIT SIGHUP SIGINT SIGTERM
+
+status_code=$(curl \
+     --netrc \
+    --silent \
+    --output /dev/null \
+    --write-out "%{http_code}" \
+    -X POST \
+    -H "X-Atlassian-Token: nocheck" \
+    -F "file=@$branch_name.zip" \
+    "$(git config --get config.jira.url)/rest/api/2/issue/$ticket/attachments")
+
+if [[ "$status_code" != "200" ]]; then
+    echo "Archive failed with status code $status_code" >&2
+    exit 1
+else
+    exit 0
+fi
