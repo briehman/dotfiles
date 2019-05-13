@@ -52,6 +52,7 @@ alias mcc="mvn clean compile"
 alias tm=tmux
 alias tma="tmux attach-session"
 alias tml="tmux list-sessions"
+alias ts=tmux-session
 
 # Function
 alias vgg="vimgitgrep"
