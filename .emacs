@@ -139,7 +139,11 @@ Entered on %U
       "* TODO %?
   %i
 ")
-     ("w11" "1:1 entry" entry
+     ("wh" "Header project task" entry
+      (file+headline "~/org/backstop/projects/header.org" "Tasks")
+      "* TODO %?
+  %i")
+     ("w1" "1:1 entry" entry
       (file+olp+datetree "~/org/refile.org" "1:1s")
       (file "~/org/templates/1on1.org")))))
  '(org-cycle-emulate-tab (quote white))
@@ -152,6 +156,7 @@ Entered on %U
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
  '(org-refile-use-outline-path (quote file))
+ '(org-reverse-note-order (quote (("one-on-ones" . t))))
  '(safe-local-variable-values
    (quote
     ((org-todo-keyword-faces
@@ -166,3 +171,4 @@ Entered on %U
   (normal-top-level-add-subdirs-to-load-path))
 
 (require 'org-checklist)
+ (add-to-list 'org-modules 'org-habit)
