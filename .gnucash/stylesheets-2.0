@@ -1,0 +1,157 @@
+(let ((template (gnc:html-style-sheet-template-find "Fancy")))
+  (if template 
+    (let ((options ((gnc:html-style-sheet-template-options-generator template)))) 
+
+; Section: General
+
+
+; Section: Tables
+
+
+; Section: Fonts
+
+
+; Section: Images
+
+
+; Section: Colors
+
+ (gnc:restore-html-style-sheet "Technicolor" "Fancy" options))))
+(let ((template (gnc:html-style-sheet-template-find "Easy")))
+  (if template 
+    (let ((options ((gnc:html-style-sheet-template-options-generator template)))) 
+
+; Section: General
+
+(let ((option (gnc:lookup-option options
+                                 "General"
+                                 "Enable Links")))
+  ((lambda (option) (if option ((gnc:option-setter option) #f))) option))
+
+
+; Section: Tables
+
+
+; Section: Fonts
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Number header")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu 6"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Title")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu Medium 12"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Text cell")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu 6"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Account link")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu Italic 6"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Centered label cell")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu Medium 10"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Total label cell")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu Medium 10"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Total number cell")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu Medium 10"))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Fonts"
+                                 "Number cell")))
+  ((lambda (option) (if option ((gnc:option-setter option) "Ubuntu 6"))) option))
+
+
+; Section: Images
+
+
+; Section: Colors
+
+(let ((option (gnc:lookup-option options
+                                 "Colors"
+                                 "Link Color")))
+  ((lambda (option) (if option ((gnc:option-setter option) '(0.0 0.0 0.0 255.0)))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Colors"
+                                 "Sub-subheading/total Cell Color")))
+  ((lambda (option) (if option ((gnc:option-setter option) '(255.0 255.0 255.0 255.0)))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Colors"
+                                 "Subheading/Subtotal Cell Color")))
+  ((lambda (option) (if option ((gnc:option-setter option) '(255.0 255.0 255.0 255.0)))) option))
+
+(let ((option (gnc:lookup-option options
+                                 "Colors"
+                                 "Grand Total Cell Color")))
+  ((lambda (option) (if option ((gnc:option-setter option) '(255.0 255.0 255.0 255.0)))) option))
+
+ (gnc:restore-html-style-sheet "Small" "Easy" options))))
+(let ((template (gnc:html-style-sheet-template-find "Plain")))
+  (if template 
+    (let ((options ((gnc:html-style-sheet-template-options-generator template)))) 
+
+; Section: General
+
+
+; Section: Tables
+
+
+; Section: Fonts
+
+
+; Section: Colors
+
+ (gnc:restore-html-style-sheet "Default" "Plain" options))))
+(let ((template (gnc:html-style-sheet-template-find "Easy")))
+  (if template 
+    (let ((options ((gnc:html-style-sheet-template-options-generator template)))) 
+
+; Section: General
+
+
+; Section: Tables
+
+
+; Section: Fonts
+
+
+; Section: Images
+
+
+; Section: Colors
+
+ (gnc:restore-html-style-sheet "Easy" "Easy" options))))
+(let ((template (gnc:html-style-sheet-template-find "Footer")))
+  (if template 
+    (let ((options ((gnc:html-style-sheet-template-options-generator template)))) 
+
+; Section: General
+
+
+; Section: Tables
+
+
+; Section: Fonts
+
+
+; Section: Images
+
+
+; Section: Colors
+
+ (gnc:restore-html-style-sheet "Footer" "Footer" options))))
