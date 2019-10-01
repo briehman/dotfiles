@@ -33,6 +33,7 @@ alias gf="git fetch"
 alias gg="git grep"
 alias gl="git log"
 alias glnm="git log --no-merges"
+alias glsm="git log origin/master.."
 alias glr="git log --reverse"
 alias gp="git pull"
 
