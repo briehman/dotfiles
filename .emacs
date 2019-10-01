@@ -106,7 +106,8 @@
       '(
         ("w" todo "WAITING")
         ("W" todo-tree "WAITING")
-        ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
+        ("ua" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
+        ("uw" "Unscheduled Work TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
 	))
 
 (custom-set-variables
@@ -114,6 +115,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-custom-commands
+   (quote
+    (("p" . "Personal agenda items")
+     ("pa" "Personal agenda" agenda ""
+      ((org-agenda-tag-filter-preset
+	(quote
+	 ("-work")))))
+     ("w" . "Work agenda items")
+     ("wa" "Work agenda" agenda ""
+      ((org-agenda-tag-filter-preset
+	(quote
+	 ("+work")))))
+     ("ww" "Waiting work items" todo "WAITING"
+      ((org-agenda-tag-filter-preset
+	(quote
+	 ("+work")))))
+     ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
+     ("W" "Waiting items" todo "WAITING" nil))))
+ '(org-agenda-files
+   (quote
+    ("/home/brian/org/backstop/one-on-ones/ariel.org" "/home/brian/org/backstop/one-on-ones/ben.org" "/home/brian/org/backstop/one-on-ones/brian.org" "/home/brian/org/backstop/one-on-ones/doug.org" "/home/brian/org/backstop/one-on-ones/justo.org" "/home/brian/org/backstop/one-on-ones/rich.org" "/home/brian/org/backstop/one-on-ones/rodrigo.org" "/home/brian/org/backstop/projects/header.org" "/home/brian/org/backstop/projects/real-estate-holding.org" "/home/brian/org/backstop/agenda.org" "/home/brian/org/backstop/analytics_team.org" "/home/brian/org/backstop/notes.org" "/home/brian/org/projects/react-treadmill-project.org" "/home/brian/org/templates/1on1.org" "/home/brian/org/allergies.org" "/home/brian/org/clothes.org" "/home/brian/org/goals.org" "/home/brian/org/journal.org" "/home/brian/org/media.org" "/home/brian/org/notes.org" "/home/brian/org/personal.org" "/home/brian/org/refile.org" "/home/brian/org/tech.org")))
  '(org-agenda-todo-ignore-scheduled (quote future))
  '(org-capture-templates
    (quote
@@ -147,8 +169,9 @@ Entered on %U
       (file+olp+datetree "~/org/refile.org" "1:1s")
       (file "~/org/templates/1on1.org")))))
  '(org-cycle-emulate-tab (quote white))
- '(org-default-priority 67)
+ '(org-default-priority 66)
  '(org-enforce-todo-dependencies t)
+ '(org-hide-emphasis-markers t)
  '(org-hide-leading-stars t)
  '(org-log-done t)
  '(org-log-into-drawer t)
@@ -172,3 +195,9 @@ Entered on %U
 
 (require 'org-checklist)
  (add-to-list 'org-modules 'org-habit)
+
+(org-babel-do-load-languages 'org-babel-load-languages
+    '(
+        (shell . t)
+    )
+)
