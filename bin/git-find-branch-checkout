@@ -5,7 +5,19 @@ set -e
 needle="${1?Must provide branch search term}"
 shift
 
-branch="$(git find-branch $needle | cut -d'/' -f2-)"
+if git find-branch $needle; then
+  branch="$(git find-branch $needle)"
+else
+  echo "Unable to find any branches matching '$needle'. Updating origin to see if it's a new reference."
+  git remote update origin
+  branch="$(git find-branch $needle || echo '')"
+fi
+
+if [ -z "$branch" ]; then
+    echo "ERROR: Failed to find any branches to check out." >&2
+    exit 1
+fi
+
 checkout="$(echo "$branch" | head -n 1)"
 
 if [ -z "$branch" ]; then
@@ -24,4 +36,12 @@ EOF
     fi
 fi
 
-git checkout "$@" $checkout
+if echo "$checkout" | grep -qs heads/; then
+  checkout=$(echo "$checkout" | cut -d'/' -f3-)
+fi
+
+if echo "$checkout" | grep -qs remotes/; then
+  git checkout -b $(echo "$checkout" | cut -d'/' -f4-) --track $checkout
+else
+  git checkout "$@" $checkout
+fi

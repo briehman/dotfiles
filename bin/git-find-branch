@@ -1,4 +1,5 @@
 #!/bin/sh
 
 search=${1?Must provide search text}
-git branch -a | sed -e 's/\s\+//' | grep -i "$search"
+
+git for-each-ref --format="%(refname)" refs/heads/ refs/remotes | grep -i "$search"
