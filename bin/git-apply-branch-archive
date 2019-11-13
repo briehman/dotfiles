@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+
+usage() {
+    cat <<EOF
+$(basename $0): [-f filename]
+
+Applies a zip archive of branch commits produced using git-branch-archive to
+the current git directory.
+
+  -f filename           the branch archive file to use
+  -h                    display this help
+EOF
+}
+
+while getopts "f:h" arg; do
+  case $arg in
+    f) filename="$OPTARG" ;;
+    h) usage; exit 1; ;;
+  esac
+done
+
+if [ -z "$filename" ]; then
+  echo "Filename is required" >&2
+  usage
+  exit 1
+fi
+
+shift $((OPTIND-1))
+
+clean_up() {
+    rm -rf "$OUTPUT_DIR"
+}
+
+OUTPUT_DIR="$(/bin/mktemp --tmpdir --directory "branch-archive-XXXX")"
+set -x
+unzip "$filename" -d "$OUTPUT_DIR"
+cat "$OUTPUT_DIR/commits.txt" | while read commit; do
+  echo "$commit"
+  echo git apply "$OUTPUT_DIR/$commit.patch"
+  echo git commit -F "$OUTPUT_DIR/$commit.txt"
+done
+
+trap clean_up EXIT HUP INT TERM
+
+unzip -l "$filename"
