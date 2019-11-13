@@ -152,7 +152,7 @@ Entered on %U
   %i
   %a")
      ("pt" "Todo" entry
-      (file+headline "~/org/gtd.org" "Tasks")
+      (file+olp+datetree "~/org/personal.org" "Tasks")
       "* TODO %?
   %i")
      ("w" "Work item")
