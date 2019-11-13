@@ -10,6 +10,7 @@
 [diff]
   mnemonicprefix = true
   renames = copies
+  noprefix = true
 [alias]
   br = branch
   ci = commit --verbose
