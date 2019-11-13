@@ -59,9 +59,9 @@ rm -f $commit_output && touch $commit_output
 
 set -e
 
-for rev in $(git -C $git_dir rev-list $merge_base..$ref --no-merges); do
-    git -C $git_dir log -1 $rev >> $commit_output
-    echo "" >> $commit_output
+for rev in $(git -C $git_dir rev-list $merge_base..$ref --reverse --no-merges); do
+    echo $rev >> $commit_output
+    git -C $git_dir log --pretty="%b" > "$branch_output/${rev}.txt"
     git -C $git_dir show $rev > "$branch_output/$rev.patch"
 done
 
