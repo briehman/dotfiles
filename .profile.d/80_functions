@@ -89,7 +89,11 @@ svnup() {
 }
 
 gradle_wrapper() {
-  $(git rev-parse --show-toplevel)/gradlew "$@"
+  if [ -f ./gradlew ]; then
+    ./gradlew "$@"
+  else
+    $(git rev-parse --show-toplevel)/gradlew "$@"
+  fi
 }
 
 mvn_wrapper() {
