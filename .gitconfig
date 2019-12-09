@@ -50,6 +50,7 @@
   staged = diff --cached
   t = !git tag | sort -n
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
+  mu = merge-upstream
 [log]
   decorate = full
   mailmap = true

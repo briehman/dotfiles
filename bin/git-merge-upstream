@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -x
+
+upstream="$(git rev-parse --abbrev-ref --symbolic-full-name @{u})"
+git merge $upstream
