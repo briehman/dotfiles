@@ -28,10 +28,12 @@
   mb = merge-base
   mod = !git status --porcelain | grep -E '^.M' | cut -c4-
   md = merge-diff
+  mu = merge-upstream
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
   redo = commit --amend -C HEAD
+  rhu = reset-hard-upstream
   rl = reflog
   rmm = remove-merged
   rp = remote prune
@@ -50,7 +52,7 @@
   staged = diff --cached
   t = !git tag | sort -n
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
-  mu = merge-upstream
+  wm = when-merged
 [log]
   decorate = full
   mailmap = true

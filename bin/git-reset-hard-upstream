@@ -1,0 +1,10 @@
+#!/bin/sh
+
+upstream="$(git rev-parse --abbrev-ref --symbolic-full-name @{u})"
+
+git status --short
+echo "Really reset hard to $upstream?"
+read confirm
+
+git reset --hard $upstream
+
