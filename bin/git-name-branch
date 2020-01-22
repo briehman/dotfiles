@@ -1,0 +1,4 @@
+#!/bin/sh
+
+short_name="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD | cut -d'-' -f1-3)"
+git branch -m "${short_name}-${1?Must provide new name text}"
