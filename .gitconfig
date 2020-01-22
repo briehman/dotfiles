@@ -29,6 +29,7 @@
   mod = !git status --porcelain | grep -E '^.M' | cut -c4-
   md = merge-diff
   mu = merge-upstream
+  nb = name-branch
   rb = rebase
   rbc = rebase --continue
   rbs = rebase --skip
