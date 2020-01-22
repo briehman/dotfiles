@@ -24,7 +24,17 @@
 (eval-when-compile (require 'use-package))
 
 (use-package iedit :ensure t)
-(use-package magit :ensure t)
+(use-package magit
+  :ensure t
+  :config
+
+  (global-set-key (kbd "C-x g") 'magit-status)
+)
+
+(use-package htmlize
+  :ensure t
+)
+
 (use-package find-file-in-project
   :ensure t
   :config
