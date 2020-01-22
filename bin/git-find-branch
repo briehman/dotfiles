@@ -1,5 +1,20 @@
 #!/bin/sh
 
+while getopts ":sx" opt; do
+  case ${opt} in
+    s)
+      short=":lstrip=3"
+      ;;
+    x)
+      set -x
+      ;;
+    \?) echo "Usage: find-branch [-s]"
+      ;;
+  esac
+done
+
+shift $((OPTIND -1))
+
 search=${1?Must provide search text}
 
-git for-each-ref --format="%(refname)" refs/heads/ refs/remotes | grep -i "$search"
+git for-each-ref --format="%(refname${short})" refs/heads/ refs/remotes | grep -i "$search"
