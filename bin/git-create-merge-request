@@ -1,6 +1,11 @@
 #!/bin/bash
 
-branch="$(git rev-parse --abbrev-ref HEAD)"
+if [[ $# -lt 1 ]]; then
+  branch="$(git rev-parse --abbrev-ref HEAD)"
+else
+  branch="$(git find-branch -s "$1")"
+fi
+
 default_merge_branch="$(echo "$branch" | cut -d '-' -f1-3)"
 project="$(git config --get config.merge-request.project)"
 target="$(git config --get config.merge-request.target)"
