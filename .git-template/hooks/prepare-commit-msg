@@ -8,7 +8,7 @@ def get_ref_name
   rebase_head_file = File.join(git_dir, 'rebase-merge', 'head-name')
   if File.exists?(rebase_head_file)
     rebase_head = File.read(rebase_head_file)
-    symbolic_rebase_head = `git rev-parse --abbrev-ref #{rebase_head} 2>/dev/null`
+    symbolic_rebase_head = `git ticket #{rebase_head} 2>/dev/null`
     if symbolic_rebase_head.empty?
       current_head
     else
@@ -25,7 +25,7 @@ end
 
 
 ref = get_ref_name
-branch_regex = /^([A-Z]{2,}-\d+)/
+branch_regex = /^(feature\/)?([A-Z]{2,}-\d+)/
 ref_match = ref.match(branch_regex)
 
 if ref_match
@@ -34,7 +34,7 @@ if ref_match
     new_file = ARGV[0] + '.new'
     File.open(new_file, 'w') do |f|
       File.readlines(commit_file).each_with_index do |line, i|
-        f.puts (i == 0 ? ref_match.captures[0] + ' ': '') + line
+        f.puts (i == 0 ? ref_match.captures[1] + ' ': '') + line
       end
     end
     File.rename(new_file, commit_file)
