@@ -213,6 +213,9 @@ Entered on %U
      ("wt" "TODO" entry
       (file+olp+datetree "~/org/backstop/agenda.org" "Tasks")
       "* TODO %?
+  :LOGBOOK:
+  - State \"TODO\" from %U
+  :END:
   %i
 ")
      ("wh" "Header project task" entry
