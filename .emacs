@@ -190,9 +190,6 @@
 	 ("+work")))))
      ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
      ("W" "Waiting items" todo "WAITING" nil))))
- '(org-agenda-files
-   (quote
-    ("/home/brian/org/backstop/one-on-ones/ariel.org" "/home/brian/org/backstop/one-on-ones/ben.org" "/home/brian/org/backstop/one-on-ones/brian.org" "/home/brian/org/backstop/one-on-ones/doug.org" "/home/brian/org/backstop/one-on-ones/justo.org" "/home/brian/org/backstop/one-on-ones/rich.org" "/home/brian/org/backstop/one-on-ones/rodrigo.org" "/home/brian/org/backstop/projects/header.org" "/home/brian/org/backstop/projects/real-estate-holding.org" "/home/brian/org/backstop/agenda.org" "/home/brian/org/backstop/analytics_team.org" "/home/brian/org/backstop/notes.org" "/home/brian/org/projects/react-treadmill-project.org" "/home/brian/org/templates/1on1.org" "/home/brian/org/allergies.org" "/home/brian/org/clothes.org" "/home/brian/org/goals.org" "/home/brian/org/journal.org" "/home/brian/org/media.org" "/home/brian/org/notes.org" "/home/brian/org/personal.org" "/home/brian/org/refile.org" "/home/brian/org/tech.org")))
  '(org-agenda-todo-ignore-scheduled (quote future))
  '(org-capture-templates
    (quote
