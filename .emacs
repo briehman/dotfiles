@@ -233,7 +233,7 @@ Entered on %U
  '(org-hide-leading-stars t)
  '(org-log-done t)
  '(org-log-into-drawer t)
- '(org-log-reschedule (quote time))
+ '(org-log-reschedule nil)
  '(org-lowest-priority 68)
  '(org-refile-allow-creating-parent-nodes (quote confirm))
  '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
