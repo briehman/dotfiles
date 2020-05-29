@@ -228,6 +228,7 @@ Entered on %U
  '(org-cycle-emulate-tab (quote white))
  '(org-default-priority 67)
  '(org-enforce-todo-dependencies t)
+ '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-hide-emphasis-markers t)
  '(org-hide-leading-stars t)
  '(org-log-done t)
