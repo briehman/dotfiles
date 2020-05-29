@@ -42,6 +42,33 @@
   (global-set-key (kbd "C-x p") 'find-file-in-project)
 )
 
+(use-package doom-themes
+  :ensure t
+  :config
+
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each
+  ;; theme may have their own settings.
+  (load-theme 'doom-molokai t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme
+  (doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+  (require 'doom-modeline)
+  (doom-modeline-mode 1)
+
+)
+
+(use-package all-the-icons
+  :ensure t
+)
+
 (use-package evil
   :ensure t
   :config
@@ -71,7 +98,6 @@
 )
 
 (scroll-bar-mode -1)
-(load-theme 'wombat)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
