@@ -97,6 +97,26 @@
   )
 )
 
+(use-package helm
+  :ensure t
+  :config
+
+  (setq-default helm-M-x-fuzzy-match t)
+  (global-set-key "\C-x\C-m" 'helm-M-x)
+  (global-set-key "\C-c\C-m" 'helm-M-x)
+  (global-set-key "\C-x\C-r" 'helm-recentf)
+
+  (use-package evil
+    :ensure t
+    :config
+    (define-key evil-ex-map "b " 'helm-mini)
+    (define-key evil-ex-map "e" 'helm-find-files)
+    (define-key evil-ex-map "r" 'helm-recentf)
+    (define-key evil-ex-map "x" 'helm-M-x)
+  )
+
+)
+
 (scroll-bar-mode -1)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
