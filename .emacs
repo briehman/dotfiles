@@ -135,7 +135,7 @@
 (setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
 
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "IN_PROGRESS(i)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
+      '((sequence "TODO(t!/!)" "IN_PROGRESS(i)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
 
 	;; Sequence for POSSESSIONS
          ;; PURCHASE means to buy; it's functionally the wishlist
