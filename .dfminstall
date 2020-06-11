@@ -4,3 +4,6 @@ setup.sh skip
 setup.sh exec
 .emacs~ skip
 .emacs.d recurse
+.config skip
+.config/regolith skip
+.config/regolith/i3 recurse
