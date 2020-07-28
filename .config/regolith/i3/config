@@ -564,3 +564,11 @@ focus_follows_mouse yes
 # Show the specific scratchpad window, if any.
 bindsym $mod+Ctrl+e [class="Emacs"] scratchpad show
 bindsym $mod+Ctrl+k [class="KeePassXC"] scratchpad show
+
+exec emacs-gtk --name emacs-scratch
+exec firefox --name work-firefox
+exec firefox -p Personal -no-remote --class firefox-personal
+exec firefox -p Personal -no-remote --class firefox-music
+exec keepassxc
+
+for_window [instance="emacs-scratch"] move scratchpad
