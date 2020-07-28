@@ -169,7 +169,12 @@ bindkey -M vicmd v edit-command-line
 
 # Completion {{{
 # Use modern completion system
-autoload -Uz compinit && compinit
+
+ZCOMPDUMP_DIR=~/.cache/zsh/zcompdump-$ZSH_VERSION
+set -e
+[ ! -d $ZCOMPDUMP_DIR ] && mkdir -p $ZCOMPDUMP_DIR
+autoload -Uz compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
+set +e
 
 zmodload -i zsh/complist
 
