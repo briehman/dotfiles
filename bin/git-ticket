@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -e
+git rev-parse --symbolic-full-name --abbrev-ref ${1:-HEAD} \
+  | sed -e 's#^feature/##' \
+  | cut -d'-' -f1-2
