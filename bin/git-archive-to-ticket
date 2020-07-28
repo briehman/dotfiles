@@ -4,12 +4,33 @@ clean_up() {
     rm -rf "$ticket.zip"
 }
 
-ticket="$(git ticket)"
-branch_name="$(git rev-parse --abbrev-ref --symbolic-full-name HEAD)"
+while getopts "b:t:u:h" arg; do
+  case $arg in
+    b) branch_name="$OPTARG" ;;
+    t) ticket="$OPTARG" ;;
+    u) upstream="$OPTARG" ;;
+    h) usage; exit 1; ;;
+  esac
+done
 
-git branch-archive -q -b origin/dev -f $branch_name.zip
+if [[ -z "$branch" ]]; then
+  branch_name="$(git rev-parse --abbrev-ref --symbolic-full-name HEAD)"
+fi
+
+if [[ -z "$upstream" ]]; then
+  upstream=origin/dev
+fi
+
+if [[ -z "$ticket" ]]; then
+  ticket="$(git ticket)"
+fi
+
+shift $((OPTIND-1))
+
+git branch-archive -q -b $upstream -f $branch_name.zip
 trap clean_up EXIT SIGHUP SIGINT SIGTERM
 
+set -x
 status_code=$(curl \
      --netrc \
     --silent \

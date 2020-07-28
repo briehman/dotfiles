@@ -48,6 +48,7 @@ clean_up() {
 OUTPUT_DIR="$(/bin/mktemp --tmpdir --directory "branch-archive-XXXX")"
 trap clean_up EXIT HUP INT TERM
 
+set -ex
 merge_base=$(git -C $git_dir merge-base $base_ref $ref)
 ref_basename="$(basename $ref)"
 
@@ -56,8 +57,6 @@ commit_output="$branch_output/commits.txt"
 
 mkdir -p "$branch_output"
 rm -f $commit_output && touch $commit_output
-
-set -e
 
 for rev in $(git -C $git_dir rev-list $merge_base..$ref --reverse --no-merges); do
     echo $rev >> $commit_output
