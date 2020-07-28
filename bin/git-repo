@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ -z "$OPEN_COMMAND" ]; then
+  if command -v xdg-open >/dev/null; then
+    OPEN_BIN=xdg-open
+  else
+    OPEN_BIN=open
+  fi
+fi
+
+url="$(git config --get remote.origin.url)"
+
+if echo $url | grep -qs gitlab; then
+  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://#'  -e 's/.git$//')
+elif echo $url | grep -qs github.com; then
+  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://www.#' -e 's/.git$//')
+fi
