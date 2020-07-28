@@ -1,6 +1,28 @@
 #!/bin/bash
 
-if [[ $# -lt 1 ]]; then
+usage() {
+    cat <<EOF
+$(basename $0): [-b branch]
+
+Create a merge request and link to the JIRA ticket for the provided branch if specified else
+current checked out branch.
+
+  -b branch_name    The name of the branch to create a request
+  -h                display this help
+EOF
+}
+
+while getopts "b:h" arg; do
+  case $arg in
+    b) branch="$OPTARG" ;;
+    h) usage; exit 1; ;;
+  esac
+done
+
+shift $((OPTIND -1))
+set -x
+
+if [[ -z "$branch" ]]; then
   branch="$(git rev-parse --abbrev-ref HEAD)"
 else
   branch="$(git find-branch -s "$1")"
