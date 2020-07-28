@@ -68,6 +68,25 @@ set_from_resource $ws18 i3-wm.workspace.18.name "18"
 set_from_resource $ws19 i3-wm.workspace.19.name "19"
 
 ###############################################################################
+# Monitors
+###############################################################################
+
+set_from_resource $laptop_monitor i3-wm.monitor.laptop eDP-1
+set_from_resource $external_monitor i3-wm.monitor.external HDMI-1
+
+workspace 1 output $external_monitor
+workspace 2 output $external_monitor
+workspace 3 output $laptop_monitor
+workspace 4 output $external_monitor
+workspace 5 output $laptop_monitor
+workspace 6 output $external_monitor
+workspace 7 output $external_monitor
+workspace 8 output $laptop_monitor
+workspace 9 output $external_monitor
+workspace 10 output $external_monitor
+workspace 11 output $external_monitor
+
+###############################################################################
 # Launcher dialogs
 ###############################################################################
 
