@@ -1,3 +1,9 @@
 #!/bin/sh
 
-git rev-parse --abbrev-ref --symbolic-full-name "@{u}"
+if [ $# -gt 0 ]; then
+  for branch in "$@"; do
+    git rev-parse --abbrev-ref --symbolic-full-name "${branch:-@}"@{upstream}
+  done
+else
+    git rev-parse --abbrev-ref --symbolic-full-name @{upstream}
+fi
