@@ -30,6 +30,10 @@ fi
 
 default_merge_branch="$(echo "$branch" | cut -d '-' -f1-3)"
 project="$(git config --get config.merge-request.project)"
+if [[ -z "$project" ]]; then
+  project=$(git config --get remote.origin.url | grep gitlab | cut -d':' -f2 | sed -e 's/\.git//')
+fi
+
 target="$(git config --get config.merge-request.target)"
 merge_branch="$(git config --get --default "$default_merge_branch" "branch.$branch.merge-request-branch")"
 
