@@ -23,6 +23,7 @@
   db = diff-branch
   new-push = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
   dm = "!git diff-branch origin/master HEAD"
+  fa = fetch --all
   fb = find-branch
   fco = find-branch-checkout
   last = log -1 @
