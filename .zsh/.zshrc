@@ -1,7 +1,5 @@
 # vim: ft=sh
 
-echo "Running $HOME/.zsh/.zshrc"
-
 # Environment variables {{{
 export EDITOR=vim
 export VISUAL=vim
