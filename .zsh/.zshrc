@@ -27,7 +27,7 @@ alias c=batcat
 alias xo=xdg-open
 
 # Shell aliases
-alias f=fd
+alias f=fdfind
 alias k=kill
 alias ka=killall
 alias ls="ls --color=auto"
