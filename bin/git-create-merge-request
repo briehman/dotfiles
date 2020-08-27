@@ -20,7 +20,6 @@ while getopts "b:h" arg; do
 done
 
 shift $((OPTIND -1))
-set -x
 
 if [[ -z "$branch" ]]; then
   branch="$(git rev-parse --abbrev-ref HEAD)"
