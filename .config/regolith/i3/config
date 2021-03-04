@@ -558,7 +558,6 @@ assign [class="tmux-dev"] $ws1
 assign [class="Emacs"] $ws1
 assign [class="Firefox"] $ws2
 assign [class="Slack"] $ws3
-assign [class="firefox-personal"] $ws9
 assign [class="gnucash"] $ws11
 
 focus_follows_mouse yes
@@ -571,7 +570,6 @@ bindsym $mod+Ctrl+f [class="org.gnome.Nautilus"] scratchpad show
 exec emacs-gtk --name emacs-scratch
 exec firefox --name work-firefox
 exec firefox -p Personal -no-remote --class firefox-personal
-exec firefox -p Personal -no-remote --class firefox-music
 exec keepassxc --name keepassxc-scratch
 exec $i3-wm.program.files --name nautilus-scratch
 
