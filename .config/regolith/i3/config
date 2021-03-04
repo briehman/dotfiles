@@ -565,7 +565,7 @@ focus_follows_mouse yes
 # Show the specific scratchpad window, if any.
 bindsym $mod+Ctrl+e [class="Emacs"] scratchpad show
 bindsym $mod+Ctrl+k [class="KeePassXC"] scratchpad show
-bindsym $mod+Ctrl+f [class="org.gnome.Nautilus"] scratchpad show
+bindsym $mod+Ctrl+f [class="Org.gnome.Nautilus"] scratchpad show
 
 exec emacs-gtk --name emacs-scratch
 exec firefox --name work-firefox
