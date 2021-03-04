@@ -192,6 +192,7 @@
 	 ("+work")))))
      ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
      ("W" "Waiting items" todo "WAITING" nil))))
+ '(org-agenda-text-search-extra-files (quote (agenda-archives)))
  '(org-agenda-todo-ignore-scheduled (quote future))
  '(org-capture-templates
    (quote
