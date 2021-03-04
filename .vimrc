@@ -224,6 +224,7 @@ if has('autocmd')
   "   Wrap commit messages at 72 chars
   "   Start in insert mode
   autocmd BufNewFile,BufReadPost svn-commit.tmp set ft=gitcommit spell tw=72 | exe "normal ggX" | start
+  autocmd BufNewFile,BufReadPost *Jenkinsfile* set ft=groovy
   " }}}
 
   " {{{ Filetype settings
