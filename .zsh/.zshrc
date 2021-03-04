@@ -167,6 +167,13 @@ autoload edit-command-line && zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 # }}}
 
+# Plugins {{{
+#. $HOME/dotfiles/lib/z.sh
+for plugin in $HOME/.zsh/plugins/*.plugin.zsh; do
+  [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
+done
+# }}}
+
 # Completion {{{
 # Use modern completion system
 
@@ -271,13 +278,6 @@ bindkey '\eq' push-line-or-edit
 # Store directory history and get tab-completion when entering "cd -<TAB>"
 setopt AUTO_PUSHD
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
-# }}}
-
-# Plugins {{{
-. $HOME/dotfiles/lib/z.sh
-for plugin in $HOME/.zsh/plugins/*.plugin.zsh; do
-  [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
-done
 # }}}
 
 # Shell helpers {{{
