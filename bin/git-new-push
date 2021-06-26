@@ -1,0 +1,11 @@
+#!/bin/bash
+
+get_remote() {
+  git config --get --default origin push.default-remote
+}
+
+remote="$(get_remote)"
+abbrev_ref="$(git rev-parse --abbrev-ref HEAD)"
+upstream_name="$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-3)"
+
+git push --set-upstream "$remote" "$abbrev_ref:$upstream_name"
