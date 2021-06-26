@@ -21,7 +21,7 @@
   cp = cherry-pick
   ctags = !.git/hooks/ctags
   db = diff-branch
-  new-push = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
+  new-push = !git push -u origin $(git rev-parse --abbrev-ref HEAD):$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-3)
   dm = "!git diff-branch origin/master HEAD"
   fa = fetch --all
   fb = find-branch
