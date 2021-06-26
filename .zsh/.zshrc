@@ -132,7 +132,7 @@ llp() {
 autoload -Uz promptinit && promptinit
 autoload -Uz colors && colors
 
-export STARSHIP_CONFIG=~/.starship
+export STARSHIP_CONFIG=$HOME/.starship
 eval "$(starship init zsh)"
 # }}}
 
