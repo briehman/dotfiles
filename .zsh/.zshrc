@@ -169,7 +169,7 @@ bindkey -M vicmd v edit-command-line
 
 # Plugins {{{
 #. $HOME/dotfiles/lib/z.sh
-for plugin in $HOME/.zsh/plugins/*.plugin.zsh; do
+for plugin in $HOME/.zsh/plugins/**/*.plugin.zsh; do
   [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
 done
 # }}}
