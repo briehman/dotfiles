@@ -256,7 +256,7 @@ ps1() {
     elif [[ "$t" == "help" ]]; then
         echo "Allowed: minimal.  No args to restore";
     else
-        . ~/.zshrc.d/05_prompt.zsh
+        . ~/.zshrc
     fi
 }
 # }}}
