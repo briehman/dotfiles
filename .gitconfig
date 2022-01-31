@@ -12,6 +12,7 @@
   mnemonicprefix = true
   renames = copies
 [alias]
+  current-branch = !git rev-parse --abbrev-ref HEAD
   br = branch
   ci = commit --verbose
   cia = commit --amend
