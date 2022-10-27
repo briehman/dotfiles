@@ -12,7 +12,6 @@
   mnemonicprefix = true
   renames = copies
 [alias]
-  current-branch = !git rev-parse --abbrev-ref HEAD
   br = branch
   ci = commit --verbose
   cia = commit --amend
@@ -20,6 +19,7 @@
   co = checkout
   cp = cherry-pick
   ctags = !.git/hooks/ctags
+  current-branch = !git rev-parse --abbrev-ref HEAD
   db = diff-branch
   dm = "!git diff-branch origin/master HEAD"
   fa = fetch --all
