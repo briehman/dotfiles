@@ -73,6 +73,8 @@ alias ff=firefox
 alias dotf="cd ~/dotfiles"
 alias org="cd ~/org"
 
+alias md="python3 -m grip"
+
 # Local {{{
 # }}}
 # }}}
