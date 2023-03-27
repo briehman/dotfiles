@@ -3,7 +3,7 @@
 # Environment variables {{{
 export EDITOR=vim
 export VISUAL=vim
-export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Local {{{
 # }}}
