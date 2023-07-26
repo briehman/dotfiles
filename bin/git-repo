@@ -11,7 +11,7 @@ fi
 url="$(git config --get remote.origin.url)"
 
 if echo $url | grep -qs gitlab; then
-  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://#'  -e 's/.git$//')
+  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://#'  -e 's/.git$//')${1:+/-/tree/$(git symbolic-ref --short HEAD 2>/dev/null)/$(git rev-parse --show-prefix)$1}
 elif echo $url | grep -qs github.com; then
-  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://www.#' -e 's/.git$//')
+  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://www.#' -e 's/.git$//')${1:+/blob/$(git symbolic-ref --short HEAD 2>/dev/null)/$(git rev-parse --show-prefix)$1}
 fi
