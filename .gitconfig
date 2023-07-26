@@ -11,7 +11,6 @@
 [diff]
   mnemonicprefix = true
   renames = copies
-  noprefix = true
 [alias]
   br = branch
   ci = commit --verbose
@@ -20,8 +19,8 @@
   co = checkout
   cp = cherry-pick
   ctags = !.git/hooks/ctags
+  current-branch = !git rev-parse --abbrev-ref HEAD
   db = diff-branch
-  new-push = !git push -u origin $(git rev-parse --abbrev-ref HEAD)
   dm = "!git diff-branch origin/master HEAD"
   fa = fetch --all
   fb = find-branch
@@ -68,6 +67,7 @@
   enabled = 1
 [init]
   templatedir = ~/.git-template
+	defaultBranch = main
 [push]
   default = upstream
 [config "merge-request"]
@@ -77,3 +77,5 @@
 	prune = true
 [pull]
 	ff = only
+[interactive]
+	singlekey = true

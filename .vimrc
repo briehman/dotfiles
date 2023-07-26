@@ -13,9 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'bling/vim-airline'
 Bundle 'corntrace/bufexplorer'
-Bundle 'derekwyatt/vim-scala'
 Bundle 'docunext/closetag.vim'
-Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'mbbill/undotree'
@@ -224,6 +222,7 @@ if has('autocmd')
   "   Wrap commit messages at 72 chars
   "   Start in insert mode
   autocmd BufNewFile,BufReadPost svn-commit.tmp set ft=gitcommit spell tw=72 | exe "normal ggX" | start
+  autocmd BufNewFile,BufReadPost *Jenkinsfile* set ft=groovy
   " }}}
 
   " {{{ Filetype settings

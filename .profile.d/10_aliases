@@ -67,3 +67,6 @@ alias ff=firefox
 # directories
 alias dotf="cd ~/dotfiles"
 alias org="cd ~/org"
+
+# Markdown reader in current directory
+alias md="python3 -m grip"

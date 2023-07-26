@@ -551,12 +551,13 @@ bindsym $mod+e layout toggle split
 bindsym $mod+t layout toggle tabbed splith splitv
 bindsym $mod+Ctrl+Shift+h layout splith
 bindsym $mod+Ctrl+Shift+v layout splitv
+bindsym $mod+Ctrl+h split horizontal
+bindsym $mod+Ctrl+v split vertical
 
 assign [class="tmux-dev"] $ws1
 assign [class="Emacs"] $ws1
 assign [class="Firefox"] $ws2
 assign [class="Slack"] $ws3
-assign [class="firefox-personal"] $ws9
 assign [class="gnucash"] $ws11
 
 focus_follows_mouse yes
@@ -564,11 +565,14 @@ focus_follows_mouse yes
 # Show the specific scratchpad window, if any.
 bindsym $mod+Ctrl+e [class="Emacs"] scratchpad show
 bindsym $mod+Ctrl+k [class="KeePassXC"] scratchpad show
+bindsym $mod+Ctrl+f [class="Org.gnome.Nautilus"] scratchpad show
 
 exec emacs-gtk --name emacs-scratch
 exec firefox --name work-firefox
 exec firefox -p Personal -no-remote --class firefox-personal
-exec firefox -p Personal -no-remote --class firefox-music
-exec keepassxc
+exec keepassxc --name keepassxc-scratch
+exec $i3-wm.program.files --name nautilus-scratch
 
 for_window [instance="emacs-scratch"] move scratchpad
+for_window [instance="keepassxc-scratch"] move scratchpad
+for_window [instance="nautilus-scratch"] move scratchpad

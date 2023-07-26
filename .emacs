@@ -167,6 +167,8 @@
         ("uw" "Unscheduled Work TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
 	))
 
+(global-set-key (kbd "C-c l") 'org-store-link)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -190,6 +192,7 @@
 	 ("+work")))))
      ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
      ("W" "Waiting items" todo "WAITING" nil))))
+ '(org-agenda-text-search-extra-files (quote (agenda-archives)))
  '(org-agenda-todo-ignore-scheduled (quote future))
  '(org-capture-templates
    (quote

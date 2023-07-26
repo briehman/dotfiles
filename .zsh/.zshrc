@@ -73,6 +73,8 @@ alias ff=firefox
 alias dotf="cd ~/dotfiles"
 alias org="cd ~/org"
 
+alias md="python3 -m grip"
+
 # Local {{{
 # }}}
 # }}}
@@ -132,7 +134,7 @@ llp() {
 autoload -Uz promptinit && promptinit
 autoload -Uz colors && colors
 
-export STARSHIP_CONFIG=~/.starship
+export STARSHIP_CONFIG=$HOME/.starship
 eval "$(starship init zsh)"
 # }}}
 
@@ -142,8 +144,8 @@ setopt inc_append_history hist_ignore_space histignorealldups sharehistory
 
 # Keep N lines of history within the shell and save it to ~/.zsh_history:
 HISTORY_IGNORE="(ls|cd|pwd|exit|cd ..)"
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=15000
+SAVEHIST=15000
 HISTFILE=~/.zsh_history
 # }}}
 
@@ -165,6 +167,13 @@ bindkey -M isearch 'jj' accept-search
 # Let v edit the command
 autoload edit-command-line && zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
+# }}}
+
+# Plugins {{{
+#. $HOME/dotfiles/lib/z.sh
+for plugin in $HOME/.zsh/plugins/**/*.plugin.zsh; do
+  [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
+done
 # }}}
 
 # Completion {{{
@@ -249,7 +258,7 @@ ps1() {
     elif [[ "$t" == "help" ]]; then
         echo "Allowed: minimal.  No args to restore";
     else
-        . ~/.zshrc.d/05_prompt.zsh
+        . ~/.zshrc
     fi
 }
 # }}}
@@ -271,13 +280,6 @@ bindkey '\eq' push-line-or-edit
 # Store directory history and get tab-completion when entering "cd -<TAB>"
 setopt AUTO_PUSHD
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
-# }}}
-
-# Plugins {{{
-. $HOME/dotfiles/lib/z.sh
-for plugin in $HOME/.zsh/plugins/*.plugin.zsh; do
-  [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
-done
 # }}}
 
 # Shell helpers {{{

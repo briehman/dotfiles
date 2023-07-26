@@ -12,15 +12,15 @@ current checked out branch.
 EOF
 }
 
-while getopts "b:h" arg; do
+while getopts "b:t:h" arg; do
   case $arg in
     b) branch="$OPTARG" ;;
+    t) target="$OPTARG" ;;
     h) usage; exit 1; ;;
   esac
 done
 
 shift $((OPTIND -1))
-set -x
 
 if [[ -z "$branch" ]]; then
   branch="$(git rev-parse --abbrev-ref HEAD)"
@@ -34,7 +34,10 @@ if [[ -z "$project" ]]; then
   project=$(git config --get remote.origin.url | grep gitlab | cut -d':' -f2 | sed -e 's/\.git//')
 fi
 
-target="$(git config --get config.merge-request.target)"
+if [[ -z "$target" ]]; then
+  target="$(git config --get config.merge-request.target)"
+fi
+
 merge_branch="$(git config --get --default "$default_merge_branch" "branch.$branch.merge-request-branch")"
 
 create-merge-request --branch "$merge_branch" \
