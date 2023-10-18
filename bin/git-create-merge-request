@@ -8,6 +8,7 @@ Create a merge request and link to the JIRA ticket for the provided branch if sp
 current checked out branch.
 
   -b branch_name    The name of the branch to create a request
+  -t target_branch  The name of the branch to merge into
   -h                display this help
 EOF
 }
@@ -35,10 +36,17 @@ if [[ -z "$project" ]]; then
 fi
 
 if [[ -z "$target" ]]; then
-  target="$(git config --get config.merge-request.target)"
+  branch_target="$(git config --get "branch.$branch.merge-request.target")"
+
+  if [[ -n "$branch_target" ]]; then
+    target="$branch_target"
+  else
+    project_target="$(git config --get config.merge-request.target)"
+    target="$(git config --get config.merge-request.target)"
+  fi
 fi
 
-merge_branch="$(git config --get --default "$default_merge_branch" "branch.$branch.merge-request-branch")"
+merge_branch="$(git config --get --default "$default_merge_branch" "branch.$branch.merge-request.branch")"
 
 create-merge-request --branch "$merge_branch" \
   $(test -n "$project" && echo "--project $project") \

@@ -6,6 +6,11 @@ get_remote() {
 
 remote="$(get_remote)"
 abbrev_ref="$(git rev-parse --abbrev-ref HEAD)"
-upstream_name="$(git rev-parse --abbrev-ref HEAD | cut -d'-' -f1-3)"
+if echo "$abbrev_ref" | grep --quiet --silent \\-prod; then
+  upstream_name="$(echo "$abbrev_ref" | cut -d'-' -f1-4)"
+  git config "branch.$abbrev_ref.merge-request.target" prod
+else
+  upstream_name="$(echo "$abbrev_ref" | cut -d'-' -f1-3)"
+fi
 
 git push --set-upstream "$remote" "$abbrev_ref:$upstream_name"
