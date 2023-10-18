@@ -70,6 +70,7 @@
 	defaultBranch = main
 [push]
   default = upstream
+  autoSetupRemote = true
 [config "merge-request"]
   target = master
 
