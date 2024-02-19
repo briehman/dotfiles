@@ -36,29 +36,11 @@ call yankstack#setup()
 " }}}
 "
 "{{{ Terminal Settings
-
-if &term =~ 'xterm-256color' || &term =~ 'screen-256color' || &term =~ 'xterm'
-  set t_Co=256
-  color desert256
-else
-  set t_Co=8
-  color desert
-endif
-
-" Screen terminal settings
-if &term =~ 'screen' || &term =~ 'screen-256color'
-  exe "set title titlestring=vim:%t"
-  exe "set title t_ts=\<esc>k t_fs=\<esc>\\"
-  exe "set ttymouse=xterm2"
-endif
+color desert256
 
 " Set terminal font encoding
 set encoding=utf-8
 set termencoding=utf-8
-
-" Fix the terminal so when we leave it doesn't hijack our background color
-"autocmd VimLeave * :set term=vt100
-
 "}}}
 
 "{{{ General settings
@@ -66,7 +48,7 @@ set termencoding=utf-8
 " Turn on syntax highlighting
 syntax on
 
-" Save up to 100 commands executed
+" Save up to N commands executed
 set history=200
 
 " enable filetype detection
@@ -169,7 +151,6 @@ set pastetoggle=<leader>pt
 "{{{ Mouse options
 
 set mouse=a
-"set mousemodel=popup
 set ttymouse=xterm2
 
 " set up command mode abbreviations for mouseoff and mouseon
@@ -212,17 +193,10 @@ if has('autocmd')
   autocmd BufNewFile,BufReadPost COMMIT_EDITMSG set spell tw=72 | exe "normal gg" | start!
   " }}}
   "
-  " {{{ svn settings
-  " Commit messages settings
-  "   Enable spell-checking
-  "   Wrap commit messages at 72 chars
-  "   Start in insert mode
-  autocmd BufNewFile,BufReadPost svn-commit.tmp set ft=gitcommit spell tw=72 | exe "normal ggX" | start
-  autocmd BufNewFile,BufReadPost *Jenkinsfile* set ft=groovy
-  " }}}
 
   " {{{ Filetype settings
   autocmd BufNewFile,BufRead *.md set filetype=markdown
+  autocmd BufNewFile,BufReadPost *Jenkinsfile* set ft=groovy
   " }}}
 
 endif
@@ -294,13 +268,11 @@ set writebackup " We want to write a backup file
 set backupdir=~/.vim/backup,.,~/tmp,~/ " Store the backup file outside the current directory if it exists
 set directory=~/.vim/tmp,.,~/tmp,/var/tmp,/tmp " Store the swap file outside the current directory if it exists
 
-if version >= 703
-  " Set persistent undo within files
-  set undodir=~/.vim/undodir
-  set undofile
-  set undolevels=1000  "maximum number of changes that can be undone
-  set undoreload=10000 "maximum number lines to save for undo on a buffer reload
-endif
+" Set persistent undo within files
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000  "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
 
 " }}}
 
@@ -353,14 +325,6 @@ inoremap \fn <C-R>=expand("%:t:r")<CR>
 inoremap \dn <C-R>=expand("%:h")<CR>
 " Insert a pseudo-ish package name that we will clean up
 inoremap \pn  <ESC>mqa<C-R>=expand("%:h")<CR><ESC>:s#/#.#g<CR>`q
-
-" Highlight trailing whitespace with a red background
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/ " This will not match trailing whitespace when typing on a line
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
 
 " Set the window title to the path we started vim with instead of "Thanks for " flying Vim!"
 let &titleold=getcwd()
