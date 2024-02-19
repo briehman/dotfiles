@@ -10,20 +10,14 @@ Plugin 'gmarik/Vundle.vim'
 
 " }}}
 
-Bundle 'SirVer/ultisnips'
 Bundle 'bling/vim-airline'
-Bundle 'corntrace/bufexplorer'
 Bundle 'docunext/closetag.vim'
-Bundle 'kien/ctrlp.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'mbbill/undotree'
-Bundle 'paradigm/TextObjectify'
 Bundle 'rodjek/vim-puppet'
-Bundle 'suan/vim-instant-markdown'
 Bundle 'tmhedberg/matchit'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
@@ -336,37 +330,9 @@ nnoremap <Leader>gs :Gstatus<Enter>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 " }}}
 
-" {{{ Taglist
-" Tell the taglist plugin that the window size cannot be changed
-let Tlist_Inc_Winwidth=0
-
-" Taglist commands
-map <leader>tl :TlistToggle<cr>
-" }}}
-
 " {{{ Closetag
 " Source our closetag function with the right document types
 au FileType html,xml,xsl,xslt source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-" }}}
-
-" CtrlP {{{
-let g:ctrlp_map = '<m-p>'
-nmap <leader>cpp :CtrlP<CR>
-nmap <leader>cpb :CtrlPBuffer<CR>
-nmap <leader>cpm :CtrlPMRU<CR>
-let g:ctrlp_match_window_reversed = 0 " Put search results at the top instead of the bottom
-let g:ctrlp_regexp = 1 " Search as regex by default
-let g:ctrlp_max_files = 30000
-let g:ctrlp_max_depth = 40
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cache_dir = $HOME.'/.vim/cache/ctrlp'
-let g:ctrlp_open_multiple_files = '2vr'
-let g:ctrlp_extensions = ['tag', 'undo', 'mixed']
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git|hg|svn)|build$'
-      \}
-let g:ctrlp_root_markers = ['.idea']
 " }}}
 
 " YankStack {{{
@@ -376,12 +342,6 @@ let g:yankstack_map_keys = 0
 nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
 " }}}
-
-" UltiSnips {{{
-let g:UltiSnipsListSnippets = '<c-l>'
-let g:UltiSnipsEditSplit = 'horizontal'
-" }}}
-
 
 set nocompatible
 set colorcolumn=120
