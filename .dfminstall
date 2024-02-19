@@ -7,3 +7,4 @@ setup.sh exec
 .config skip
 .config/regolith skip
 .config/regolith/i3 recurse
+.config/nvim recurse
