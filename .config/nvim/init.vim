@@ -308,6 +308,11 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 au FileType html,xml,xsl,xslt source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 " }}}
 
+" fzf {{{
+nnoremap <leader>fg :GFiles<Enter>
+nnoremap <leader>ff :Files<Enter>
+nnoremap <leader>rg :Rg<Enter>
+" }}}
 " YankStack {{{
 " If we do not manually specify these mappings, ctrlp will take them over for
 " some reason even though we've told it not to
