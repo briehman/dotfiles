@@ -22,7 +22,7 @@ alias vd=vimdiff
 alias vi=nvim
 alias gw=gradle_wrapper
 alias mw=mvn_wrapper
-alias c=batcat
+alias c=bat
 alias xo=xdg-open
 
 # Shell aliases
