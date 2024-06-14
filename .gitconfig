@@ -11,6 +11,8 @@
 [diff]
   mnemonicprefix = true
   renames = copies
+  algorithm = histogram
+
 [alias]
   br = branch
   ci = commit --verbose
@@ -63,6 +65,7 @@
 [merge]
   tool = vimdiff
   stat = true
+  conflictStyle = diff3
 [rerere]
   enabled = 1
 [init]
@@ -80,3 +83,9 @@
 	ff = only
 [interactive]
 	singlekey = true
+[rebase]
+	autostash = true
+[help]
+	autocorrect = 10
+[branch]
+	sort = committerdate
