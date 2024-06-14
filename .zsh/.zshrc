@@ -1,8 +1,8 @@
 # vim: ft=sh
 
 # Environment variables {{{
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Local {{{
@@ -82,11 +82,11 @@ alias md="python3 -m grip"
 # Functions {{{
 
 vimfind() {
-  vim $(find "$@")
+  nvim $(find "$@")
 }
 
 vimgitgrep() {
-  vim $(git grep -l "$@")
+  nvim $(git grep -l "$@")
 }
 
 gcd() {
