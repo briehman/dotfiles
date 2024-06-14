@@ -4,6 +4,7 @@
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export LS_COLORS="$LS_COLORS:di=0;35:"
 
 # Local {{{
 # }}}
