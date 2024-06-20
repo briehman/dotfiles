@@ -9,3 +9,9 @@ disabled = true
 
 [time]
 disabled = false
+
+[docker_context]
+disabled = true
+
+[gradle]
+disabled = true
