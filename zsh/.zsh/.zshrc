@@ -170,13 +170,6 @@ autoload edit-command-line && zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 # }}}
 
-# Plugins {{{
-#. $HOME/dotfiles/lib/z.sh
-for plugin in $HOME/.zsh/plugins/**/*.plugin.zsh; do
-  [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
-done
-# }}}
-
 # Completion {{{
 # Use modern completion system
 
@@ -248,6 +241,13 @@ zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
 zstyle ':filter-select' extended-search no # see below
 
 fpath=(${0:h}/zsh-completions/src $fpath)
+# }}}
+
+# Plugins {{{
+#. $HOME/dotfiles/lib/z.sh
+for plugin in $HOME/.zsh/plugins/**/*.plugin.zsh; do
+  [[ -r "$plugin" && -f "$plugin" ]] && . $plugin
+done
 # }}}
 
 # Functions {{{
