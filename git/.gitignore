@@ -7,3 +7,4 @@
 .vim/undodir/*
 .vim/yankring_history_*
 \#*
+.sdkmanrc
