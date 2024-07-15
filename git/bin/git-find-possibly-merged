@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git for-each-ref refs/heads/ --format="%(refname:strip=2)" \
-  | grep -E "^[A-Z]{2}+" \
+  | grep -E "^[A-Z]{2}-" \
   | while read branch; do
     ticket=$(echo $branch | cut -d'-' -f1-2)
     merges=$(git log --merges --since="1 year ago" --grep="$ticket.*into")
