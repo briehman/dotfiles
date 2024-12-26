@@ -8,10 +8,42 @@ if [ -z "$OPEN_COMMAND" ]; then
   fi
 fi
 
-url="$(git config --get remote.origin.url)"
+get_branch() {
+  echo "${branch:-$(git symbolic-ref --short HEAD 2>/dev/null)}"
+}
 
-if echo $url | grep -qs gitlab; then
-  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://#'  -e 's/.git$//')${1:+/-/tree/$(git symbolic-ref --short HEAD 2>/dev/null)/$(git rev-parse --show-prefix)$1}
-elif echo $url | grep -qs github.com; then
-  $OPEN_BIN $(echo $url | sed -e 's#:#/#' -e 's#git@#https://www.#' -e 's/.git$//')${1:+/blob/$(git symbolic-ref --short HEAD 2>/dev/null)/$(git rev-parse --show-prefix)$1}
-fi
+get_gitlab_url() {
+  root_url="$(echo $url | sed \
+    -e 's#:#/#' \
+    -e 's#git@#https://#' \
+    -e 's/.git$//')"
+  branch_name="$(get_branch)"
+  path="${file:+/-/tree/$branch_name/$(git rev-parse --show-prefix)$file}"
+  echo "${root_url}${path}"
+}
+
+get_github_url() {
+  root_url="$(echo $url | sed \
+    -e 's#:#/#' \
+    -e 's#git@#https://www.#' \
+    -e 's/.git$//')"
+  branch_name="$(get_branch)"
+  path="${file:+/blob/$branch_name/$(git rev-parse --show-prefix)$file}"
+  echo "${root_url}${path}"
+}
+
+get_url() {
+  origin_url="$(git config --get remote.origin.url)"
+
+  if echo $url | grep -qs gitlab; then
+    get_gitlab_url "$origin_url"
+  elif echo $url | grep -qs github.com; then
+    get_github_url "$origin_url"
+  fi
+}
+
+url="$(git config --get remote.origin.url)"
+file="$1"
+branch="$2"
+
+$OPEN_BIN $(get_url)
