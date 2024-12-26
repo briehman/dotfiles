@@ -1,0 +1,23 @@
+#!/bin/bash
+
+usage() {
+    cat <<EOF
+$(basename $0): [-b branch]
+
+Lists merge requests for the provided branch if specified else the current branch.
+
+  -b branch   The branch to print merge requests for
+  -h          display this help
+EOF
+}
+
+branch="$1"
+if [[ -z "$branch" ]]; then
+  branch="$(git rev-parse --abbrev-ref HEAD)"
+else
+  branch="$(git find-branch -s "$branch")"
+fi
+
+branch="$(echo $branch | cut -d- -f1-2)"
+
+list-merge-requests --ticket "$branch"
