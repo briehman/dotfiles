@@ -63,7 +63,7 @@
   decorate = full
   mailmap = true
 [merge]
-  tool = vimdiff
+  tool = "nvim -d"
   stat = true
   conflictStyle = diff3
 [rerere]

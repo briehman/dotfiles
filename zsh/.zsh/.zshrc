@@ -18,7 +18,7 @@ alias gr=grep
 alias grep='grep --color=auto'
 alias j=jobs
 alias v=nvim
-alias vd=vimdiff
+alias vd="nvim -d"
 alias vi=nvim
 alias gw=gradle_wrapper
 alias mw=mvn_wrapper
