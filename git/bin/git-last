@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $# -gt 0 ]]; then
+    git log -1 $(git merge-base "$@")
+else
+    git log -1 "$@"
+fi
+
