@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for f in "$@"; do
+    base="$(basename "$f")"
+    jq --sort-keys '.' "$f" > /tmp/"$base"
+    mv /tmp/"$base" "$f"
+done
