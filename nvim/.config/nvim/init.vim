@@ -10,6 +10,8 @@ Plugin 'gmarik/Vundle.vim'
 
 " }}}
 
+let g:airline#extensions#whitespace#symbol = '!'
+
 Bundle 'bling/vim-airline'
 Bundle 'docunext/closetag.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
@@ -120,6 +122,7 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/ " This will not match trailing whitespace when typing on a line
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
+autocmd FileType json set formatprg=jq
 " }}}
 
 "{{{ Spacing and tabbing
