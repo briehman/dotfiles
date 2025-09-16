@@ -330,4 +330,4 @@ inoremap \pn  <ESC>mqa<C-R>=expand("%:h")<CR><ESC>:s#/#.#g<CR>`q
 let &titleold=getcwd()
 
 map <leader>p :Prettier<cr>
-autocmd BufWritePre *.js Prettier
+"autocmd BufWritePre *.js Prettier
