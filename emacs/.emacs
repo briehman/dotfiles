@@ -1,8 +1,6 @@
 (require 'package)
 
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("org" . "http://stable.melpa.org/packages/"))
 
 (setq package-enable-at-startup nil)
 (package-initialize)
@@ -128,11 +126,15 @@
 ;; hide startup
 (setq inhibit-startup-screen t)
 
-(setq org-default-notes-file "~/org/notes.org")
+(setq org-default-notes-file "~/org/backstop/notes.org")
+
+;; Indent text to org mode header on LHS
+(setq org-adapt-indentation t)
+
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" `org-agenda)
 
-(setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
+(setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
 
 (setq org-todo-keywords
       '((sequence "TODO(t!/!)" "IN_PROGRESS(i)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
@@ -174,64 +176,49 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(evil-undo-system 'undo-redo)
+ '(magit-repository-directories '(("/Users/brian.riehman/dev/work/" . 1)))
  '(org-agenda-custom-commands
-   (quote
-    (("p" . "Personal agenda items")
+   '(("p" . "Personal agenda items")
      ("pa" "Personal agenda" agenda ""
-      ((org-agenda-tag-filter-preset
-	(quote
-	 ("-work")))))
+      ((org-agenda-tag-filter-preset '("-work"))))
      ("w" . "Work agenda items")
      ("wa" "Work agenda" agenda ""
-      ((org-agenda-tag-filter-preset
-	(quote
-	 ("+work")))))
+      ((org-agenda-tag-filter-preset '("+work"))))
      ("ww" "Waiting work items" todo "WAITING"
-      ((org-agenda-tag-filter-preset
-	(quote
-	 ("+work")))))
-     ("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
-     ("W" "Waiting items" todo "WAITING" nil))))
- '(org-agenda-text-search-extra-files (quote (agenda-archives)))
- '(org-agenda-todo-ignore-scheduled (quote future))
+      ((org-agenda-tag-filter-preset '("+work"))))
+     ("u" "Unscheduled TODOs" tags
+      "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
+     ("W" "Waiting items" todo "WAITING" nil)))
+ '(org-agenda-text-search-extra-files '(agenda-archives))
+ '(org-agenda-todo-ignore-scheduled 'future)
  '(org-capture-templates
-   (quote
-    (("p" "Personal item")
-     ("pj" "Journal" entry
-      (file+olp+datetree "~/org/journal.org")
-      "* %?
-Entered on %U
-  %a")
-     ("pn" "Notes" entry
-      (file+olp+datetree "~/org/notes.org")
-      "* %?
-Entered on %U
-  %i
-  %a")
+   '(("p" "Personal item")
+     ("pj" "Journal" entry (file+olp+datetree "~/org/journal.org")
+      "* %?\12Entered on %U\12  %a")
+     ("pn" "Notes" entry (file+olp+datetree "~/org/notes.org")
+      "* %?\12Entered on %U\12  %i\12  %a")
      ("pt" "Todo" entry
       (file+olp+datetree "~/org/personal.org" "Tasks")
-      "* TODO %?
-  %i")
+      "* TODO %?\12  %i")
      ("w" "Work item")
      ("wt" "TODO" entry
       (file+olp+datetree "~/org/backstop/agenda.org" "Tasks")
-      "* TODO %?
-  :LOGBOOK:
-  - State \"TODO\" from %U
-  :END:
-  %i
-")
+      "* TODO %?\12  :LOGBOOK:\12  - State \"TODO\" from %U\12  :END:\12  %i\12")
+     ("wa" "Activity Management task" entry
+      (file+olp+datetree "~/org/backstop/activity_management.org"
+			 "Tasks" "Adhoc")
+      "* TODO %?\12  :LOGBOOK:\12  - State \"TODO\" from %U\12  :END:\12  %i\12")
      ("wh" "Header project task" entry
       (file+headline "~/org/backstop/projects/header.org" "Tasks")
-      "* TODO %?
-  %i")
+      "* TODO %?\12  %i")
      ("w1" "1:1 entry" entry
       (file+olp+datetree "~/org/refile.org" "1:1s")
-      (file "~/org/templates/1on1.org")))))
- '(org-cycle-emulate-tab (quote white))
+      (file "~/org/templates/1on1.org"))))
+ '(org-cycle-emulate-tab 'white)
  '(org-default-priority 67)
  '(org-enforce-todo-dependencies t)
- '(org-export-backends (quote (ascii html icalendar latex md odt)))
+ '(org-export-backends '(ascii html icalendar latex md odt))
  '(org-hide-emphasis-markers t)
  '(org-hide-leading-stars t)
  '(org-log-done t)
@@ -245,7 +232,10 @@ Entered on %U
  '(org-todo-keywords
    '((sequence "TODO(t!)" "IN_PROGRESS(i!)" "WAITING(w!)" "|"
 	       "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)"
-	       "FAILED(f@/!)")))
+	       "FAILED(f@/!)")
+     (sequence "PURCHASE(p!@/!)" "SELL(k@/!)" "DONATE(@/!)" "|"
+	       "UNWANTED(a@/!)" "OWN(o@/!)" "GIFTED(g@/!)"
+	       "SOLD(c@/!)" "DISCARDED(q@/!)" "DONATED(q@/!)")))
  '(package-selected-packages
    '(helm all-the-icons-dired all-the-icons-ivy all-the-fonts
 	  doom-modeline doom-themes use-package org-jira org-bullets
@@ -253,13 +243,11 @@ Entered on %U
 	  find-file-in-project evil-surround evil-ledger evil-leader
 	  evil-escape cl-generic))
  '(safe-local-variable-values
-   (quote
-    ((org-todo-keyword-faces
-      ("FAILED" . "red")
-      ("PARTIALLY_DONE" . "orange")
-      ("CANCELED" . "grey")
-      ("DONE" . "light green")
-      ("DELEGATED" . "light blue"))))))
+   '((org-todo-keyword-faces ("FAILED" . "red")
+			     ("PARTIALLY_DONE" . "orange")
+			     ("CANCELED" . "grey")
+			     ("DONE" . "light green")
+			     ("DELEGATED" . "light blue")))))
 
 (let ((default-directory  "~/.emacs.d/elisp/"))
   (normal-top-level-add-to-load-path '("."))
