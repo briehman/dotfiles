@@ -16,7 +16,7 @@ open_urls() {
     if [ "$num_fields" -lt 2 ]; then
       i="${JIRA_DEFAULT_PROJECT?Must set JIRA_DEFAULT_PROJECT environment variable if not supplying a project}-$i"
     fi
-    $OPEN_BIN "$JIRA_URL/browse/$i"
+    $OPEN_BIN "$JIRA_URL/browse/$(echo $i | cut -d'-' -f1-2)"
   done
 }
 

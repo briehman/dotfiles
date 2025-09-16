@@ -15,3 +15,9 @@ disabled = true
 
 [gradle]
 disabled = true
+
+[git_status]
+disabled = true
+
+[java]
+style = 'red'
