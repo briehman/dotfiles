@@ -1,0 +1,11 @@
+#!/bin/bash
+
+gitroot="$(git rev-parse --show-toplevel)"
+
+if [[ ! -d "$gitroot" ]]; then
+  echo "ERROR: Not in a Git directory. Use 'cd' instead." >&2
+  return
+fi
+
+set -x
+cd ${gitroot}/$1

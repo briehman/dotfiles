@@ -1,0 +1,7 @@
+#!/bin/bash
+
+needle="${1?Specify search argument}"
+shift
+for jar in "$@"; do
+     jar tf $jar | grep -qs $needle && echo $jar
+done
