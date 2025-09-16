@@ -11,123 +11,10 @@ export LS_COLORS="$LS_COLORS:di=0;35:"
 # }}}
 
 # Aliases {{{
-# Unix aliases
-alias ag="ack-grep"
-alias d=diff
-alias gr=grep
-alias grep='grep --color=auto'
-alias j=jobs
-alias v=nvim
-alias vd="nvim -d"
-alias vi=nvim
-alias gw=gradle_wrapper
-alias mw=mvn_wrapper
-alias c=bat
-alias xo=xdg-open
-
-# Shell aliases
-alias f=fdfind
-alias k=kill
-alias ka=killall
-alias ls="ls --color=auto"
-alias ll="ls -Al --color=auto"
-alias lld="ls -Ald --color=auto"
-alias xg="xargs grep"
-alias ..="cd .."
-
-# Git aliases
-alias g=git
-alias ga="git add"
-alias gs="git status"
-alias gd="git diff"
-alias gdw="git diff --word-diff"
-alias gst="git staged"
-alias gf="git fetch"
-alias gg="git grep"
-alias gl="git log"
-alias glnm="git log --no-merges"
-alias glsm="git log origin/master.."
-alias glr="git log --reverse"
-alias gp="git pull"
-
-# Maven aliases
-alias m=mvn
-alias mc="mvn compile"
-alias mcc="mvn clean compile"
-
-# tmux aliases
-alias tm=tmux
-alias tma="tmux attach-session"
-alias tml="tmux list-sessions"
-alias ts=tmux-session
-
-# Function
-alias vgg="vimgitgrep"
-alias vf="vimfind"
-
-# vagrant
-alias vg=vagrant
-
-alias ff=firefox
-
-# directories
-alias dotf="cd ~/dotfiles"
-alias org="cd ~/org"
-
-alias md="python3 -m grip"
+source ~/.profile.d/10_aliases
 
 # Local {{{
-# }}}
-# }}}
-
-# Functions {{{
-
-vimfind() {
-  nvim $(find "$@")
-}
-
-vimgitgrep() {
-  nvim $(git grep -l "$@")
-}
-
-gcd() {
-  local gitroot=$(git rev-parse --show-toplevel)
-
-  if [[ ! -d "$gitroot" ]]; then
-    echo "ERROR: Not in a Git directory. Use 'cd' instead." >&2
-    return
-  fi
-
-  cd ${gitroot}/$1
-}
-
-search_jars() {
-    needle="${1?Specify search argument}"
-    shift
-    for jar in "$@"; do
-         jar tf $jar | grep -qs $needle && echo $jar
-    done
-}
-
-gradle_wrapper() {
-  if [ -f ./gradlew ]; then
-    ./gradlew "$@"
-  else
-    $(git rev-parse --show-toplevel)/gradlew "$@"
-  fi
-}
-
-mvn_wrapper() {
-  $(git rev-parse --show-toplevel)/mvnw "$@"
-}
-
-llp() {
-  for f in "$@"; do
-    ls -al $PWD/$f
-  done
-}
-
-# Local {{{
+source ~/.profile.d/10_aliases.local
 # }}}
 # }}}
 
@@ -177,6 +64,7 @@ ZCOMPDUMP_DIR=~/.cache/zsh/zcompdump-$ZSH_VERSION
 set -e
 [ ! -d $ZCOMPDUMP_DIR ] && mkdir -p $ZCOMPDUMP_DIR
 autoload -Uz compinit && compinit -d ~/.cache/zsh/zcompdump-$ZSH_VERSION
+autoload -U bashcompinit && bashcompinit
 set +e
 
 zmodload -i zsh/complist
@@ -241,6 +129,9 @@ zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
 zstyle ':filter-select' extended-search no # see below
 
 fpath=(${0:h}/zsh-completions/src $fpath)
+
+# Local {{{
+# }}}
 # }}}
 
 # Plugins {{{
@@ -251,6 +142,17 @@ done
 # }}}
 
 # Functions {{{
+gcd() {
+  local gitroot=$(git rev-parse --show-toplevel)
+
+  if [[ ! -d "$gitroot" ]]; then
+    echo "ERROR: Not in a Git directory. Use 'cd' instead." >&2
+    return
+  fi
+
+  cd ${gitroot}/$1
+}
+
 ps1() {
     t="${1}"
     if [[ "$t" =~ "min" ]]; then
@@ -259,7 +161,7 @@ ps1() {
     elif [[ "$t" == "help" ]]; then
         echo "Allowed: minimal.  No args to restore";
     else
-        . ~/.zshrc
+        . ~/.zsh/.zshrc
     fi
 }
 # }}}
@@ -285,11 +187,15 @@ zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;
 
 # Shell helpers {{{
 # Local {{{
-which rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+which rbenv >/dev/null 2>&1 && eval "$(rbenv init - zsh)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if command -v brew >/dev/null 2>&1; then
+    source $(brew --prefix nvm)/nvm.sh
+fi
 
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
