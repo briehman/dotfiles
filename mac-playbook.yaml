@@ -1,0 +1,76 @@
+- name: Set up new machine
+  hosts: localhost
+  become: false
+  vars:
+    brew_packages:
+      - ant
+      - awscli
+      - bash
+      - bat
+      - consul
+      - emacs
+      - fish
+      - fisher
+      - font-hack-nerd-font
+      - fzf
+      - gh
+      - git
+      - go
+      - granted
+      - grip
+      - iterm2
+      - jfrog-cli
+      - jq
+      - mermaid-cli
+      - mvn
+      - neovim
+      - nvm
+      - pnpm@8
+      - powershell/tap/powershell
+      - rbenv
+      - rectangle
+      - ripgrep
+      - ruby-build
+      - shellcheck
+      - starship
+      - textmate
+      - tmux
+      - unclack
+      - watch
+      - wget
+      - wireshark
+
+  pre_tasks:
+    - name: Ensuring Homebrew Is Installed
+      stat:
+        path: /opt/homebrew/bin/brew
+      register: homebrew_check
+
+    - name: Fail If Homebrew Is Not Installed
+      fail:
+        msg: Homebrew is missing...Install from http://brew.sh/
+      when:
+        - not homebrew_check.stat.exists
+
+  tasks:
+    - name: Updating Homebrew
+      homebrew:
+        update_homebrew: true
+      when: homebrew_check.stat.exists
+
+    - name: Installing Homebrew Packages
+      homebrew:
+        name: "{{ brew_packages }}"
+        state: present
+      register: result
+      until: result is successful
+      when: homebrew_check.stat.exists
+
+    - name: Allow control+command click to drag
+      shell: defaults write -g NSWindowShouldDragOnGesture -bool true
+
+    - name: Write screenshots in JPG format to reduce size
+      shell: defaults write com.apple.screencapture type jpg;killall SystemUIServer
+
+    # - name: Write screenshots in default PNG format
+    #   shell: defaults write com.apple.screencapture type png;killall SystemUIServer
