@@ -132,7 +132,7 @@
 (define-key global-map "\C-cc" 'org-capture)
 (define-key global-map "\C-ca" `org-agenda)
 
-(setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
+(setq org-agenda-files (directory-files-recursively "~/org/" "\\.org$"))
 
 (setq org-todo-keywords
       '((sequence "TODO(t!/!)" "IN_PROGRESS(i)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
@@ -238,10 +238,20 @@ Entered on %U
  '(org-log-into-drawer t)
  '(org-log-reschedule nil)
  '(org-lowest-priority 68)
- '(org-refile-allow-creating-parent-nodes (quote confirm))
- '(org-refile-targets (quote ((org-agenda-files :maxlevel . 3))))
- '(org-refile-use-outline-path (quote file))
- '(org-reverse-note-order (quote (("one-on-ones" . t))))
+ '(org-refile-allow-creating-parent-nodes 'confirm)
+ '(org-refile-targets '((org-agenda-files :maxlevel . 3)))
+ '(org-refile-use-outline-path 'file)
+ '(org-reverse-note-order '(("one-on-ones" . t)))
+ '(org-todo-keywords
+   '((sequence "TODO(t!)" "IN_PROGRESS(i!)" "WAITING(w!)" "|"
+	       "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)"
+	       "FAILED(f@/!)")))
+ '(package-selected-packages
+   '(helm all-the-icons-dired all-the-icons-ivy all-the-fonts
+	  doom-modeline doom-themes use-package org-jira org-bullets
+	  org-autolist magit iedit find-file-in-repository
+	  find-file-in-project evil-surround evil-ledger evil-leader
+	  evil-escape cl-generic))
  '(safe-local-variable-values
    (quote
     ((org-todo-keyword-faces
