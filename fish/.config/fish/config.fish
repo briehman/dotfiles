@@ -9,14 +9,15 @@ if status is-interactive
 
     # Path {{{
     source $HOME/.profile.d/10_aliases
-    source $HOME/.profile.d/10_aliases.local
+    test -e $HOME/.profile.d/10_aliases.local && source $HOME/.profile.d/10_aliases.local
+    fish_add_path /opt/homebrew/bin
     fish_add_path $HOME/bin
     fish_add_path $HOME/node_modules/.bin
     fish_add_path $HOME/dev/work/devtools/bin/
     # }}}
 
     # Tools {{{
-    rbenv init - --no-rehash fish | source
+    /opt/homebrew/bin/rbenv init - --no-rehash fish | source
 
     eval (/opt/homebrew/bin/brew shellenv)
 
