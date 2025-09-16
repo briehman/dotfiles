@@ -19,73 +19,12 @@ gcd() {
   cd ${gitroot}/$1
 }
 
-# Subversion {{{
-sd() {
-  svn diff "$@" | cdiff
-}
-
-sl() {
-  svn log "$@" | less
-}
-
-svn_branch() {
-  svn info | grep -E "^URL" | cut -d' ' -f2
-}
-
-# Extremely hacky 'stash' for subversion by renaming files to a suffix that should not be tracked.
-svn_stash() {
-  # Add stashed to existing stashed files
-  svn status | grep -E "\\.stashed$" | awk '{print $2; }' | while read f; do
-    mv "$f" "$f.stashed" || return
-  done
-
-  # Rename modified files to stashed
-  svn status -q | grep -E "^M" | awk '{print $2; }' | while read f; do
-    cp -p "$f" "$f.stashed" && svn revert "$f" || return
-  done
-}
-
-svn_stash_pop() {
-  svn status | grep -E "\.stashed" | awk '{print $2; }' | while read f; do
-    mv "$f" "$(dirname $f)/$(basename $f .stashed)"
-  done
-}
-
-# Extremely hacky 'index' for subversion by renaming files
-svn_save() {
-  svn status -q | grep -E "^M" | awk '{print $2; }' | while read f; do
-    cp -p "$f" "$f.saved"
-  done
-}
-
-svn_save_clean() {
-  svn status | grep -E "\.saved" | awk '{print $2; }' | while read f; do
-    rm "$f"
-  done
-}
-
-svn_save_revert() {
-  svn status | grep -E "\.saved" | awk '{print $2; }' | while read f; do
-    mv "$f" "$(dirname $f)/$(basename $f .saved)"
-  done
-}
-
-svn_list_my_branches() {
-    svn ls ${1:-https://subversion/svn/work/dev} | grep "${SVN_USER:-$USER}" | sort
-}
-# }}}
-
 search_jars() {
     needle="${1?Specify search argument}"
     shift
     for jar in "$@"; do
          jar tf $jar | grep -qs $needle && echo $jar
     done
-}
-
-svnup() {
-    mpg123 ~/Downloads/doink-doink.mp3  >/dev/null 2>/dev/null
-    svn update
 }
 
 gradle_wrapper() {

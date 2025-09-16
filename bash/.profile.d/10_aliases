@@ -1,19 +1,18 @@
 # Unix aliases
-alias ag="ack-grep"
 alias d=diff
 alias gr=grep
 alias grep='grep --color=auto'
 alias j=jobs
-alias v=vim
+alias v=nvim
 alias vd="nvim -d"
-alias vi=vim
+alias vi=nvim
 alias gw=gradle_wrapper
 alias mw=mvn_wrapper
-alias c=cat
+alias c=bat
 alias xo=xdg-open
 
 # Shell aliases
-alias f=find
+alias f=fd
 alias k=kill
 alias ka=killall
 alias ls="ls --color=auto"
@@ -37,18 +36,6 @@ alias glsm="git log origin/master.."
 alias glr="git log --reverse"
 alias gp="git pull"
 
-# svn aliases
-alias myb="svn_list_my_branches"
-alias sb="svn_branch"
-alias svs="svn status"
-alias svu="svnup"
-alias svr="svn revert"
-
-# Maven aliases
-alias m=mvn
-alias mc="mvn compile"
-alias mcc="mvn clean compile"
-
 # tmux aliases
 alias tm=tmux
 alias tma="tmux attach-session"
@@ -58,11 +45,6 @@ alias ts=tmux-session
 # Function
 alias vgg="vimgitgrep"
 alias vf="vimfind"
-
-# vagrant
-alias vg=vagrant
-
-alias ff=firefox
 
 # directories
 alias dotf="cd ~/dotfiles"
