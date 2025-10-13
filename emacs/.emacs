@@ -7,7 +7,6 @@
 
 (setq evil-want-C-i-jump nil)
 (setq vc-follow-symlinks t)
-(setq jiralib-url "https://jira.backstop.solutions")
 
 ;; Org
 (add-hook 'org-mode-hook
@@ -27,6 +26,7 @@
   :config
 
   (global-set-key (kbd "C-x g") 'magit-status)
+  (setq magit-repository-directories '(("/Users/brian.riehman/dev/work/" . 1)))
 )
 
 (use-package htmlize
@@ -39,6 +39,10 @@
 
   (global-set-key (kbd "C-x p") 'find-file-in-project)
 )
+
+(set-frame-font "Monaco 15")
+;; Default 160 -- increasing this keeps the org agenda to prefer bottom split
+(setq split-width-threshold 100)
 
 (use-package doom-themes
   :ensure t
@@ -69,6 +73,8 @@
 
 (use-package evil
   :ensure t
+  :init
+    (setq evil-want-keybinding nil)
   :config
   (evil-mode 1)
   (evil-escape-mode)
@@ -93,6 +99,25 @@
     :config
     (global-evil-surround-mode 1)
   )
+
+  (use-package undo-tree
+    :ensure t
+    :config
+    (evil-set-undo-system 'undo-tree)
+  )
+
+  ;; enable key bindings for other modes like the buffer list and such
+  (use-package evil-collection
+    :ensure t
+    :config
+    (evil-collection-init)
+  )
+)
+
+(use-package undo-tree
+:ensure t
+:config
+  (global-undo-tree-mode)
 )
 
 (use-package helm
@@ -126,7 +151,7 @@
 ;; hide startup
 (setq inhibit-startup-screen t)
 
-(setq org-default-notes-file "~/org/backstop/notes.org")
+(setq org-default-notes-file "~/org/notes.org")
 
 ;; Indent text to org mode header on LHS
 (setq org-adapt-indentation t)
@@ -138,18 +163,7 @@
 
 (setq org-todo-keywords
       '((sequence "TODO(t!/!)" "IN_PROGRESS(i)" "WAITING(w)" "|" "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)" "FAILED(f@/!)")
-
-	;; Sequence for POSSESSIONS
-         ;; PURCHASE means to buy; it's functionally the wishlist
-         ;; SELL means you want to get rid of it
-         ;; DONATE means you want to get rid of it
-         ;; UNWANTED is for no longer wanted
-         ;; OWN is for stuff you actually own (may be overlap for reference and own)
-         ;; GIFTED is given to someone as a gift
-         ;; SOLD is sold to someone
-         ;; DISCARDED is for thrown out
-         ;; DONATED is for when it has been given away
-         (sequence "PURCHASE(p@/!)" "SELL(k@/!)" "DONATE(@/!)" "|" "UNWANTED(a@/!)" "OWN(o@/!)" "GIFTED(g@/!)"  "SOLD(c@/!)" "DISCARDED(q@/!)" "DONATED(q@/!)")))
+         ))
 
 (setq org-todo-keyword-faces
       '(("CANCELLED" :foreground "grey" :weight bold)
@@ -163,101 +177,71 @@
 
 (setq org-agenda-custom-commands
       '(
-        ("w" todo "WAITING")
-        ("W" todo-tree "WAITING")
-        ("ua" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
-        ("uw" "Unscheduled Work TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
+	("w" todo "WAITING")
+	("W" todo-tree "WAITING")
+	("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
+	))
+
+(setq org-capture-templates
+      '(
+	("t" "TODO" entry
+	 (file+olp+datetree "~/org/agenda.org" "Tasks")
+	 "* TODO %?\12  :LOGBOOK:\12  - State \"TODO\" from %U\12  :END:\12  %i\12")
 	))
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-undo-system 'undo-redo)
- '(magit-repository-directories '(("/Users/brian.riehman/dev/work/" . 1)))
- '(org-agenda-custom-commands
-   '(("p" . "Personal agenda items")
-     ("pa" "Personal agenda" agenda ""
-      ((org-agenda-tag-filter-preset '("-work"))))
-     ("w" . "Work agenda items")
-     ("wa" "Work agenda" agenda ""
-      ((org-agenda-tag-filter-preset '("+work"))))
-     ("ww" "Waiting work items" todo "WAITING"
-      ((org-agenda-tag-filter-preset '("+work"))))
-     ("u" "Unscheduled TODOs" tags
-      "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}" nil)
-     ("W" "Waiting items" todo "WAITING" nil)))
- '(org-agenda-text-search-extra-files '(agenda-archives))
- '(org-agenda-todo-ignore-scheduled 'future)
- '(org-capture-templates
-   '(("p" "Personal item")
-     ("pj" "Journal" entry (file+olp+datetree "~/org/journal.org")
-      "* %?\12Entered on %U\12  %a")
-     ("pn" "Notes" entry (file+olp+datetree "~/org/notes.org")
-      "* %?\12Entered on %U\12  %i\12  %a")
-     ("pt" "Todo" entry
-      (file+olp+datetree "~/org/personal.org" "Tasks")
-      "* TODO %?\12  %i")
-     ("w" "Work item")
-     ("wt" "TODO" entry
-      (file+olp+datetree "~/org/backstop/agenda.org" "Tasks")
-      "* TODO %?\12  :LOGBOOK:\12  - State \"TODO\" from %U\12  :END:\12  %i\12")
-     ("wa" "Activity Management task" entry
-      (file+olp+datetree "~/org/backstop/activity_management.org"
-			 "Tasks" "Adhoc")
-      "* TODO %?\12  :LOGBOOK:\12  - State \"TODO\" from %U\12  :END:\12  %i\12")
-     ("wh" "Header project task" entry
-      (file+headline "~/org/backstop/projects/header.org" "Tasks")
-      "* TODO %?\12  %i")
-     ("w1" "1:1 entry" entry
-      (file+olp+datetree "~/org/refile.org" "1:1s")
-      (file "~/org/templates/1on1.org"))))
- '(org-cycle-emulate-tab 'white)
- '(org-default-priority 67)
- '(org-enforce-todo-dependencies t)
- '(org-export-backends '(ascii html icalendar latex md odt))
- '(org-hide-emphasis-markers t)
- '(org-hide-leading-stars t)
- '(org-log-done t)
- '(org-log-into-drawer t)
- '(org-log-reschedule nil)
- '(org-lowest-priority 68)
- '(org-refile-allow-creating-parent-nodes 'confirm)
- '(org-refile-targets '((org-agenda-files :maxlevel . 3)))
- '(org-refile-use-outline-path 'file)
- '(org-reverse-note-order '(("one-on-ones" . t)))
- '(org-todo-keywords
+(setq org-agenda-text-search-extra-files '(agenda-archives))
+(setq org-agenda-todo-ignore-scheduled 'future)
+(setq org-cycle-emulate-tab 'white)
+(setq org-default-priority 67)
+(setq org-enforce-todo-dependencies t)
+(setq org-export-backends '(ascii html icalendar latex md odt))
+(setq org-hide-emphasis-markers t)
+(setq org-hide-leading-stars t)
+(setq org-log-done t)
+(setq org-log-into-drawer t)
+(setq org-log-reschedule nil)
+(setq org-lowest-priority 68)
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+(setq org-refile-use-outline-path 'file)
+(setq org-reverse-note-order '(("one-on-ones" . t)))
+(setq org-todo-keywords
    '((sequence "TODO(t!)" "IN_PROGRESS(i!)" "WAITING(w!)" "|"
 	       "DONE(d!/!)" "CANCELLED(c@/!)" "DELEGATED(g)"
 	       "FAILED(f@/!)")
      (sequence "PURCHASE(p!@/!)" "SELL(k@/!)" "DONATE(@/!)" "|"
 	       "UNWANTED(a@/!)" "OWN(o@/!)" "GIFTED(g@/!)"
 	       "SOLD(c@/!)" "DISCARDED(q@/!)" "DONATED(q@/!)")))
- '(package-selected-packages
+
+(setq safe-local-variable-values
+   '((org-todo-keyword-faces ("FAILED" . "red")
+			     ("PARTIALLY_DONE" . "orange")
+			     ("CANCELED" . "grey")
+			     ("DONE" . "light green")
+			     ("DELEGATED" . "light blue"))))
+(setq package-selected-packages
    '(helm all-the-icons-dired all-the-icons-ivy all-the-fonts
 	  doom-modeline doom-themes use-package org-jira org-bullets
 	  org-autolist magit iedit find-file-in-repository
 	  find-file-in-project evil-surround evil-ledger evil-leader
 	  evil-escape cl-generic))
- '(safe-local-variable-values
-   '((org-todo-keyword-faces ("FAILED" . "red")
-			     ("PARTIALLY_DONE" . "orange")
-			     ("CANCELED" . "grey")
-			     ("DONE" . "light green")
-			     ("DELEGATED" . "light blue")))))
 
 (let ((default-directory  "~/.emacs.d/elisp/"))
   (normal-top-level-add-to-load-path '("."))
   (normal-top-level-add-subdirs-to-load-path))
 
 (require 'org-checklist)
- (add-to-list 'org-modules 'org-habit)
 
+;; enable shell evaluation for babel
 (org-babel-do-load-languages 'org-babel-load-languages
     '(
         (shell . t)
     )
 )
+
+(setq helm-minibuffer-history-key "M-p")
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file 'noerror)
