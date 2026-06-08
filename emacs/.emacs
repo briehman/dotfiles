@@ -156,8 +156,13 @@
 ;; Indent text to org mode header on LHS
 (setq org-adapt-indentation t)
 
+(defun my-default-agenda()
+   (interactive)
+   (let ((org-agenda-span 'day)) ; Open current day by default
+     (org-agenda)))
+
 (define-key global-map "\C-cc" 'org-capture)
-(define-key global-map "\C-ca" `org-agenda)
+(define-key global-map "\C-ca" `my-default-agenda)
 
 (setq org-agenda-files (directory-files-recursively "~/org/" "\.org$"))
 
