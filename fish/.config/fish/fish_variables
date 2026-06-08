@@ -4,7 +4,6 @@ SETUVAR --export BACKSTOP_DIR:/Users/brian\x2eriehman/dev/work/backstop
 SETUVAR --export EDITOR:nvim
 SETUVAR --export JIRA_DEFAULT_PROJECT:FB
 SETUVAR --export JIRA_URL:https\x3a//jira\x2ebackstop\x2esolutions
-SETUVAR --export JSESSIONID:DE4334CD97AC0DFF0260A55846D5C5BA
 SETUVAR --export MANPAGER:sh\x20\x2dc\x20\x27col\x20\x2dbx\x20\x7c\x20bat\x20\x2dl\x20man\x20\x2dp\x27
 SETUVAR --export SDKMAN_DIR:/Users/brian\x2eriehman/\x2esdkman
 SETUVAR --export VISUAL:nvim
