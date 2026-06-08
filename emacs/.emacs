@@ -185,6 +185,7 @@
 	("w" todo "WAITING")
 	("W" todo-tree "WAITING")
 	("u" "Unscheduled TODOs" tags "+TODO=\"TODO\"&-SCHEDULED={.+}&-DEADLINE={.+}")
+	("v" "Archivable tasks" tags "SCHEDULED<=\"<-2m>\"+TODO={DONE\\|CANCELLED\\|DELEGATED\\|FAILED}")
 	))
 
 (setq org-capture-templates
