@@ -251,3 +251,11 @@
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
+
+;;(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(defun my-display-numbers-hook ()
+  (display-line-numbers-mode 1)
+  )
+
+(add-hook 'text-mode-hook 'my-display-numbers-hook)
+(add-hook 'org-mode-hook 'my-display-numbers-hook)
