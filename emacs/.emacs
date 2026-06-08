@@ -177,7 +177,7 @@
 	("FAILED" :foreground "red" :weight bold)
 	("IN_PROGRESS" :foreground "dark violet" :weight bold)
 	("PARTIALLY_DONE" :foreground "orange")
-	("WAITING" :foreground "yellow" :weight bold)
+	("WAITING" :foreground "dark orange" :weight bold)
 	))
 
 (setq org-agenda-custom-commands
