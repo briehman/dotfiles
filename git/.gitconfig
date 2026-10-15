@@ -56,6 +56,7 @@
   sl = stash list
   sp = stash pop
   ss = stash show
+  sw = switch
   staged = diff --cached
   t = !git tag | sort -n
   um = !git status --porcelain | grep -E '^U' | cut -d' ' -f2
