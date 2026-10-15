@@ -1,14 +1,16 @@
 # Unix aliases
+alias c=bat
 alias d=diff
+alias dk=docker
+alias dkc="docker compose"
 alias gr=grep
 alias grep='grep --color=auto'
+alias gw=gradle_wrapper
 alias j=jobs
+alias mw=mvn_wrapper
 alias v=nvim
 alias vd="nvim -d"
 alias vi=nvim
-alias gw=gradle_wrapper
-alias mw=mvn_wrapper
-alias c=bat
 alias xo=xdg-open
 
 # Shell aliases
